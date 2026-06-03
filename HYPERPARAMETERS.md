@@ -1,6 +1,6 @@
 # HYPERPARAMETERS.md — full hyperparameter tables
 
-All hyperparameters used in the paper's experiments, ablations, and baselines are listed below. Every reported run also ships its own `config.txt` (saved automatically by `train.py` at the start of training) with the complete argparse namespace; those files are bundled with the released checkpoints on Zenodo (DOI: *reserved at submission*).
+All hyperparameters used in the paper's experiments, ablations, and baselines are listed below. Every reported run also ships its own `config.txt` (saved automatically by `train.py` at the start of training) with the complete argparse namespace; those files are bundled with the released checkpoints on Zenodo: [10.5281/zenodo.20517421](https://doi.org/10.5281/zenodo.20517421).
 
 Conventions: all experiments use **3 seeds** `{42, 40, 22}` for replicates. The seed controls (i) random sampling of N support images from the train pool, (ii) network initialization, and (iii) data-loader shuffling.
 

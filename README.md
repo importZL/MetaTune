@@ -109,7 +109,7 @@ which renders every figure of the paper from the per-run AP/Dice arrays.
 This repository was prepared following the community checklist of Schmied et al. (*Nat Methods*, 2024) for publishing image analyses:
 
 - **Code**: every method, ablation, and baseline used in the paper is shipped here (no in-house dependencies).
-- **Weights**: trained checkpoints for all reported MetaTune, ablation, and baseline runs are deposited on Zenodo (DOI: *reserved at submission*).
+- **Weights**: trained checkpoints for all reported MetaTune (semantic) and ablation runs (vanilla baseline + swap-meta) are deposited on Zenodo: [10.5281/zenodo.20517421](https://doi.org/10.5281/zenodo.20517421).
 - **Data**: source URLs, licenses, preprocessing scripts, and train/test splits are documented in [DATA.md](DATA.md).
 - **Hyperparameters**: per-task, per-method, per-seed hyperparameters are tabulated in [HYPERPARAMETERS.md](HYPERPARAMETERS.md), and the exact `config.txt` from every reported run is bundled with the released checkpoints on Zenodo.
 - **Hardware / software**: documented in [HARDWARE.md](HARDWARE.md). All deps pinned in `requirements.txt` and `environment.yml`.

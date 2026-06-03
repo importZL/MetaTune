@@ -253,4 +253,6 @@ See [HARDWARE.md](HARDWARE.md). Single-GPU on NVIDIA A100 80GB. The full reprodu
 
 ## Released checkpoints
 
-All `best.pth` checkpoints for the runs reported in the paper (MetaTune semantic, every ablation, every baseline) are deposited on Zenodo at DOI: *reserved at submission*. Each checkpoint includes the `config.txt` of the run that produced it.
+All `best.pth` checkpoints for the semantic-segmentation runs reported in the paper (MetaTune main results, vanilla-joint baseline, swap-meta ablation) are deposited on Zenodo at DOI [10.5281/zenodo.20517421](https://doi.org/10.5281/zenodo.20517421). Each checkpoint is bundled with the exact `config.txt` (full argparse namespace) of the run that produced it.
+
+Instance-segmentation checkpoints (BLO-SAM-instance, YOLOv7+SAM-bilevel, Cellpose / Cellpose-SAM / cpsam+BLO-SAM-bilevel, StarDist) are not included in v1: the baselines auto-load their own publicly-available pretrained weights, and the fine-tunes train from those public weights using the runners in `baselines/` and `scripts/`.

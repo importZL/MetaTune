@@ -96,6 +96,9 @@ This archive accompanies:
 The deposit contains every semantic-segmentation checkpoint reported in the
 paper. Code is at https://github.com/importZL/MetaTune.
 
+  DOI (this deposit): 10.5281/zenodo.20517421
+                      https://doi.org/10.5281/zenodo.20517421
+
 ## Contents
 
   metatune_zenodo_v1/

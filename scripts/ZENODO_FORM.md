@@ -1,5 +1,10 @@
 # Zenodo upload form — fields ready to copy-paste
 
+> **Status (2026-06-03):** the deposit has been published.
+> Live DOI: [10.5281/zenodo.20517421](https://doi.org/10.5281/zenodo.20517421).
+> This file is kept as a historical record of the upload-time metadata and as a
+> template for future revisions / new deposits.
+
 Use this file when filling in the Zenodo "New upload" form for the MetaTune
 checkpoint deposit. Each section below corresponds to one of Zenodo's metadata
 fields.
@@ -105,12 +110,12 @@ cell segmentation
 
 ---
 
-## Reserve DOI (recommended)
+## DOI (published)
 
-Click **"Reserve DOI"** in the Identifiers panel before publishing. This gives
-you a stable DOI to cite in the paper *before* the deposit is finalized. The
-DOI is reserved against your account, so you can still revise the metadata or
-files until you click "Publish".
+The deposit has been published with DOI **10.5281/zenodo.20517421**
+(https://doi.org/10.5281/zenodo.20517421). For future revisions of this
+deposit, Zenodo will mint a new version-DOI; the unversioned concept-DOI above
+will always resolve to the latest version.
 
 ---
 
@@ -127,16 +132,25 @@ After upload, double-check:
 - The tarball appears under "Files" with the correct size.
 - Clicking the file name lets Zenodo unpack the README_zenodo.md preview.
 
-Then click **"Publish"**. Once published, the deposit gets a permanent DOI of
-the form `10.5281/zenodo.NNNNNNNN`. Update the placeholder `DOI: reserved at submission`
-in the GitHub repo's `README.md` and `REPRODUCE.md` with this DOI.
+Then click **"Publish"**.
 
 ---
 
-## After publishing — wire the DOI into the manuscript
+## After publishing — wire the DOI into the manuscript (DONE for v1)
 
-1. Add to the paper's "Code availability" / "Data availability" statement (Cell Press requires both):
-   > Code: https://github.com/importZL/MetaTune
-   > Trained model checkpoints (with run configs): https://doi.org/10.5281/zenodo.NNNNNNNN
-2. Update `README.md`, `REPRODUCE.md`, and any reviewer-response text that currently says "DOI: reserved at submission".
-3. In the response letter to Reviewer #7, point at the Zenodo URL/DOI explicitly.
+The live DOI is **10.5281/zenodo.20517421**. It has already been wired into:
+
+- `README.md` (Reproducibility checklist → Weights).
+- `REPRODUCE.md` (Released checkpoints section).
+- `HYPERPARAMETERS.md` (intro paragraph).
+
+For the manuscript / response letter, use:
+
+```
+Code: https://github.com/importZL/MetaTune
+Trained model checkpoints (with run configs): https://doi.org/10.5281/zenodo.20517421
+```
+
+Both sentences belong in the "Data availability" and "Code availability"
+statements that Cell Press requires. The response letter to Reviewer #7 should
+quote the same URL/DOI.
