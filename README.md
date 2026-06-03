@@ -130,8 +130,3 @@ We acknowledge:
 - [Matcher](https://github.com/aim-uofa/Matcher) (Liu et al., ICLR 2024) and [PerSAM](https://github.com/ZrrSkywalker/Personalize-SAM) (Zhang et al., ICLR 2024) as few-shot SAM baselines.
 - All eight biological-dataset providers (see [DATA.md](DATA.md) for individual citations and links).
 
-## Contact
-
-For questions or issues, please contact:
-- Li Zhang (first author): `liz113[at]ucsd.edu`
-- Pengtao Xie (corresponding): `p1xie[at]ucsd.edu`
