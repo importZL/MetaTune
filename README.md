@@ -41,7 +41,6 @@ MetaTune adapts the Segment Anything Model (SAM) for biological image segmentati
 ├── scripts/                                           Shell scripts that drive full sweeps
 ├── train.sh / inference.sh / train_swap.sh            Single-run shell wrappers
 ├── infer_swap.sh                                      Test-set inference for swap-meta ablation
-├── figures.ipynb                                      Notebook that generates every paper figure
 ├── environment.yml / environment-stardist.yml         Reproducible conda envs
 ├── requirements.txt                                   Pinned pip dependencies
 ├── REPRODUCE.md                                       Per-figure / per-table reproduction recipes
