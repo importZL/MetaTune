@@ -57,7 +57,7 @@ def get_args():
     p.add_argument("--img_size", type=int, default=256)
     p.add_argument("--low_res", type=int, default=64)
     p.add_argument("--sam_type", default="vit_b")
-    p.add_argument("--ckpt", default="/data1/li/Auto_SAMed/checkpoints/sam_vit_b_01ec64.pth")
+    p.add_argument("--ckpt", default="./checkpoints/sam_vit_b_01ec64.pth")
     p.add_argument("--lr", type=float, default=1e-3)
     p.add_argument("--train_epoch", type=int, default=500)  # ~4 supports x 500 = 2000 steps, similar budget to PerSAM-F default
     p.add_argument("--topk", type=int, default=16,

@@ -12,7 +12,9 @@ LOG=${REPO_ROOT}/logs/cpsam_bilevel.log
 run() {
     local ds=$1 num=$2 trim=$3 trma=$4 teim=$5 tema=$6 seed=$7
     echo "===== $(date '+%F %T')  ${ds}  seed=${seed}  num=${num} =====" | tee -a $LOG
-    cd /tmp  # avoid the local segment_anything shadowing cellpose's
+    local workdir="${CELLPOSE_WORKDIR:-${REPO_ROOT}/.cellpose_workdir}"
+    mkdir -p "$workdir"
+    cd "$workdir"  # keep repository-local SAM modules off the import path
     $PY ${REPO_ROOT}/baselines/cellpose_cpsam_bilevel.py \
         --train_imgs "$trim" --train_masks "$trma" \
         --test_imgs "$teim" --test_masks "$tema" \

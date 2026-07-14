@@ -55,7 +55,7 @@ def get_args():
     # SAM (use vit_b for consistency with MetaTune)
     p.add_argument("--sam_size", type=str, default="vit_b")
     p.add_argument("--sam_weights", type=str,
-                   default="/data1/li/Auto_SAMed/checkpoints/sam_vit_b_01ec64.pth")
+                   default="./checkpoints/sam_vit_b_01ec64.pth")
     # Matcher hyperparams — defaults from main_oss.py
     p.add_argument("--points_per_side", type=int, default=64)
     p.add_argument("--pred_iou_thresh", type=float, default=0.88)

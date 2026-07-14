@@ -122,7 +122,7 @@ will always resolve to the latest version.
 ## File to upload
 
 ```
-/data2/li/workspace/zenodo_metatune_v1.tar.gz
+$WORK/zenodo_metatune_v1.tar.gz
 ```
 
 Size: ~1.3 GB. Zenodo's web uploader handles this in one go; if you have

@@ -1,46 +1,46 @@
 dataset,method,seed,AP@0.5,AP@0.75,mAP_or_AP90,F1@0.5,source
-cyto,Cellpose-cpsam,22,0.37294161319732666,0.13077084720134735,0.004581634886562824,0.5303975343704224,/data2/li/workspace/SAMed/output_baselines/cellpose/cyto4_cellpose-cpsam_seed22_3729/result.json
-cyto,Cellpose-cpsam,40,0.44597744941711426,0.16752885282039642,0.0030427291058003902,0.6007598042488098,/data2/li/workspace/SAMed/output_baselines/cellpose/cyto4_cellpose-cpsam_seed40_4460/result.json
-cyto,Cellpose-cpsam,42,0.434086412191391,0.15179131925106049,0.004337199963629246,0.5914943814277649,/data2/li/workspace/SAMed/output_baselines/cellpose/cyto4_cellpose-cpsam_seed42_4341/result.json
-cyto,Cellpose-cyto3,22,0.3719637393951416,0.12931887805461884,0.004584211856126785,0.5295015573501587,/data2/li/workspace/SAMed/output_baselines/cellpose/cyto4_cellpose-cyto3_seed22_3720/result.json
-cyto,Cellpose-cyto3,40,0.4467998445034027,0.16826502978801727,0.0030493394006043673,0.6014838218688965,/data2/li/workspace/SAMed/output_baselines/cellpose/cyto4_cellpose-cyto3_seed40_4468/result.json
-cyto,Cellpose-cyto3,42,0.434688001871109,0.1526990830898285,0.004334007389843464,0.5919173359870911,/data2/li/workspace/SAMed/output_baselines/cellpose/cyto4_cellpose-cyto3_seed42_4347/result.json
-cyto,MetaTune-instance (AMG),42,0.0,0.0,0.0,0.0,/data2/li/workspace/SAMed/output_instance/cyto4_instance_img256_20260528-220105_886/amg_result.json
-cyto,MetaTune-instance (flow head),22,0.0014528193278238177,0.0,0.0,0.0027989130467176437,/data2/li/workspace/SAMed/output_instance/cyto4_instance_img256_20260528-232636_15/instance_result.json
-cyto,MetaTune-instance (flow head),40,0.00032051283051259816,0.0,0.0,0.0006329113966785371,/data2/li/workspace/SAMed/output_instance/cyto4_instance_img256_20260528-224306_3/instance_result.json
-cyto,MetaTune-instance (flow head),42,0.08856302499771118,0.00483024213463068,0.0,0.15795238316059113,/data2/li/workspace/SAMed/output_instance/cyto4_instance_img256_20260528-220105_886/instance_result.json
-cyto,MetaTune-instance (route-D),42,0.0033200171310454607,0.0,0.0,0.006584340240806341,/data2/li/workspace/SAMed/output_instance/cyto4_instance_img256_20260528-220105_886/route_d_result.json
-cyto,StarDist,22,0.10389237105846405,0.0025212648324668407,0.0,0.18304581940174103,/data2/li/workspace/SAMed/output_baselines/stardist/cyto4_stardist_seed22_1039/result.json
-cyto,StarDist,40,0.11239024251699448,0.0034383144229650497,0.0,0.19507160782814026,/data2/li/workspace/SAMed/output_baselines/stardist/cyto4_stardist_seed40_1124/result.json
-cyto,StarDist,42,0.14610713720321655,0.007669505663216114,0.0,0.24915370345115662,/data2/li/workspace/SAMed/output_baselines/stardist/cyto4_stardist_seed42_1461/result.json
-cyto,YOLOv7+SAM-bilevel (N-shot),22,0.095924,0.018086,0.028704,nan,/data2/li/workspace/yolov7-sam/yolosam_runs/cyto4_yolosam_s22/results.csv
-cyto,YOLOv7+SAM-bilevel (N-shot),40,0.14041,0.017339,0.041313,nan,/data2/li/workspace/yolov7-sam/yolosam_runs/cyto4_yolosam_s40/results.csv
-cyto,YOLOv7+SAM-bilevel (N-shot),42,0.13617,0.018133,0.039353,nan,/data2/li/workspace/yolov7-sam/yolosam_runs/cyto4_yolosam_s42/results.csv
-cyto,YOLOv7+SAM-bilevel (full data),22,0.012871,0.0023766,0.0041236,nan,/data2/li/workspace/yolov7-sam/yolosam_full/cyto_full_yolosam_s22/results.csv
-cyto,YOLOv7+SAM-bilevel (full data),40,0.022821,0.0037216,0.0067573,nan,/data2/li/workspace/yolov7-sam/yolosam_full/cyto_full_yolosam_s40/results.csv
-cyto,YOLOv7+SAM-bilevel (full data),42,0.025717,0.0057593,0.0091866,nan,/data2/li/workspace/yolov7-sam/yolosam_full/cyto_full_yolosam_s42/results.csv
-cyto,cpsam+bilevel,22,0.39228564500808716,0.12337961047887802,0.0006756756920367479,0.5464764833450317,/data2/li/workspace/SAMed/output_baselines/cpsam_bilevel/cyto4_cpsam_bilevel_seed22_3923/result.json
-cyto,cpsam+bilevel,40,0.39545518159866333,0.126663476228714,0.001686785602942109,0.5524569749832153,/data2/li/workspace/SAMed/output_baselines/cpsam_bilevel/cyto4_cpsam_bilevel_seed40_3955/result.json
-cyto,cpsam+bilevel,42,0.47272586822509766,0.15679346024990082,0.004572873003780842,0.6315510869026184,/data2/li/workspace/SAMed/output_baselines/cpsam_bilevel/cyto4_cpsam_bilevel_seed42_4727/result.json
-fluored,Cellpose-cpsam,22,0.42500603199005127,0.18633027374744415,0.0023262035101652145,0.5535774827003479,/data2/li/workspace/SAMed/output_baselines/cellpose/fluocellRed10_cellpose-cpsam_seed22_4250/result.json
-fluored,Cellpose-cpsam,40,0.40911296010017395,0.14475089311599731,0.003419710323214531,0.540042519569397,/data2/li/workspace/SAMed/output_baselines/cellpose/fluocellRed10_cellpose-cpsam_seed40_4091/result.json
-fluored,Cellpose-cpsam,42,0.3922478258609772,0.13185176253318787,0.0012341695837676525,0.530859649181366,/data2/li/workspace/SAMed/output_baselines/cellpose/fluocellRed10_cellpose-cpsam_seed42_3922/result.json
-fluored,Cellpose-cyto3,22,0.4264920651912689,0.18693514168262482,0.0020284070633351803,0.5549796223640442,/data2/li/workspace/SAMed/output_baselines/cellpose/fluocellRed10_cellpose-cyto3_seed22_4265/result.json
-fluored,Cellpose-cyto3,40,0.40944939851760864,0.14479295909404755,0.003419710323214531,0.5399690866470337,/data2/li/workspace/SAMed/output_baselines/cellpose/fluocellRed10_cellpose-cyto3_seed40_4094/result.json
-fluored,Cellpose-cyto3,42,0.3894417881965637,0.1309986263513565,0.0012341695837676525,0.5269138216972351,/data2/li/workspace/SAMed/output_baselines/cellpose/fluocellRed10_cellpose-cyto3_seed42_3894/result.json
-fluored,MetaTune-instance (flow head),22,0.09174206107854843,0.0007496252073906362,0.0,0.15618225932121277,/data2/li/workspace/SAMed/output_instance/fluocellRed10_instance_img256_20260528-233140_917/instance_result.json
-fluored,MetaTune-instance (flow head),40,0.07196918874979019,0.0003326541045680642,0.0,0.12741470336914062,/data2/li/workspace/SAMed/output_instance/fluocellRed10_instance_img256_20260528-224821_720/instance_result.json
-fluored,MetaTune-instance (flow head),42,0.08796326816082001,0.0009489303338341415,0.0,0.15006892383098602,/data2/li/workspace/SAMed/output_instance/fluocellRed10_instance_img256_20260528-220636_880/instance_result.json
-fluored,MetaTune-instance (route-D),42,0.07507121562957764,0.0027839394751936197,0.0,0.13099046051502228,/data2/li/workspace/SAMed/output_instance/fluocellRed10_instance_img256_20260528-220636_880/route_d_result.json
-fluored,StarDist,22,0.21725748479366302,0.029951246455311775,0.0,0.3226417005062103,/data2/li/workspace/SAMed/output_baselines/stardist/fluocellRed10_stardist_seed22_2173/result.json
-fluored,StarDist,40,0.2216782420873642,0.020621752366423607,0.0,0.3467811942100525,/data2/li/workspace/SAMed/output_baselines/stardist/fluocellRed10_stardist_seed40_2217/result.json
-fluored,StarDist,42,0.17288225889205933,0.012878344394266605,0.0,0.2793162763118744,/data2/li/workspace/SAMed/output_baselines/stardist/fluocellRed10_stardist_seed42_1729/result.json
-fluored,YOLOv7+SAM-bilevel (N-shot),22,0.0020477,0.0,0.00038429,nan,/data2/li/workspace/yolov7-sam/yolosam_runs/fluored10_yolosam_s22/results.csv
-fluored,YOLOv7+SAM-bilevel (N-shot),40,0.0023368,0.0,0.0004132,nan,/data2/li/workspace/yolov7-sam/yolosam_runs/fluored10_yolosam_s40/results.csv
-fluored,YOLOv7+SAM-bilevel (N-shot),42,0.013735,0.0048836,0.0060571,nan,/data2/li/workspace/yolov7-sam/yolosam_runs/fluored10_yolosam_s42/results.csv
-fluored,YOLOv7+SAM-bilevel (full data),22,0.01354,0.0026844,0.0046718,nan,/data2/li/workspace/yolov7-sam/yolosam_full/fluored_full_yolosam_s22/results.csv
-fluored,YOLOv7+SAM-bilevel (full data),40,0.018406,0.0063125,0.0072933,nan,/data2/li/workspace/yolov7-sam/yolosam_full/fluored_full_yolosam_s40/results.csv
-fluored,YOLOv7+SAM-bilevel (full data),42,0.018638,0.0051469,0.0068872,nan,/data2/li/workspace/yolov7-sam/yolosam_full/fluored_full_yolosam_s42/results.csv
-fluored,cpsam+bilevel,22,0.38554078340530396,0.1540478765964508,0.0025574585888534784,0.5195192694664001,/data2/li/workspace/SAMed/output_baselines/cpsam_bilevel/fluocellRed10_cpsam_bilevel_seed22_3855/result.json
-fluored,cpsam+bilevel,40,0.402805358171463,0.18568256497383118,0.004690295550972223,0.5373940467834473,/data2/li/workspace/SAMed/output_baselines/cpsam_bilevel/fluocellRed10_cpsam_bilevel_seed40_4028/result.json
-fluored,cpsam+bilevel,42,0.1061219647526741,0.03507070988416672,0.0,0.15579210221767426,/data2/li/workspace/SAMed/output_baselines/cpsam_bilevel/fluocellRed10_cpsam_bilevel_seed42_1061/result.json
+cyto,Cellpose-cpsam,22,0.37294161319732666,0.13077084720134735,0.004581634886562824,0.5303975343704224,output_baselines/cellpose/cyto4_cellpose-cpsam_seed22_3729/result.json
+cyto,Cellpose-cpsam,40,0.44597744941711426,0.16752885282039642,0.0030427291058003902,0.6007598042488098,output_baselines/cellpose/cyto4_cellpose-cpsam_seed40_4460/result.json
+cyto,Cellpose-cpsam,42,0.434086412191391,0.15179131925106049,0.004337199963629246,0.5914943814277649,output_baselines/cellpose/cyto4_cellpose-cpsam_seed42_4341/result.json
+cyto,Cellpose-cyto3,22,0.3719637393951416,0.12931887805461884,0.004584211856126785,0.5295015573501587,output_baselines/cellpose/cyto4_cellpose-cyto3_seed22_3720/result.json
+cyto,Cellpose-cyto3,40,0.4467998445034027,0.16826502978801727,0.0030493394006043673,0.6014838218688965,output_baselines/cellpose/cyto4_cellpose-cyto3_seed40_4468/result.json
+cyto,Cellpose-cyto3,42,0.434688001871109,0.1526990830898285,0.004334007389843464,0.5919173359870911,output_baselines/cellpose/cyto4_cellpose-cyto3_seed42_4347/result.json
+cyto,MetaTune-instance (AMG),42,0.0,0.0,0.0,0.0,output_instance/cyto4_instance_img256_20260528-220105_886/amg_result.json
+cyto,MetaTune-instance (flow head),22,0.0014528193278238177,0.0,0.0,0.0027989130467176437,output_instance/cyto4_instance_img256_20260528-232636_15/instance_result.json
+cyto,MetaTune-instance (flow head),40,0.00032051283051259816,0.0,0.0,0.0006329113966785371,output_instance/cyto4_instance_img256_20260528-224306_3/instance_result.json
+cyto,MetaTune-instance (flow head),42,0.08856302499771118,0.00483024213463068,0.0,0.15795238316059113,output_instance/cyto4_instance_img256_20260528-220105_886/instance_result.json
+cyto,MetaTune-instance (route-D),42,0.0033200171310454607,0.0,0.0,0.006584340240806341,output_instance/cyto4_instance_img256_20260528-220105_886/route_d_result.json
+cyto,StarDist,22,0.10389237105846405,0.0025212648324668407,0.0,0.18304581940174103,output_baselines/stardist/cyto4_stardist_seed22_1039/result.json
+cyto,StarDist,40,0.11239024251699448,0.0034383144229650497,0.0,0.19507160782814026,output_baselines/stardist/cyto4_stardist_seed40_1124/result.json
+cyto,StarDist,42,0.14610713720321655,0.007669505663216114,0.0,0.24915370345115662,output_baselines/stardist/cyto4_stardist_seed42_1461/result.json
+cyto,YOLOv7+SAM-bilevel (N-shot),22,0.095924,0.018086,0.028704,nan,../yolov7-sam/yolosam_runs/cyto4_yolosam_s22/results.csv
+cyto,YOLOv7+SAM-bilevel (N-shot),40,0.14041,0.017339,0.041313,nan,../yolov7-sam/yolosam_runs/cyto4_yolosam_s40/results.csv
+cyto,YOLOv7+SAM-bilevel (N-shot),42,0.13617,0.018133,0.039353,nan,../yolov7-sam/yolosam_runs/cyto4_yolosam_s42/results.csv
+cyto,YOLOv7+SAM-bilevel (full data),22,0.012871,0.0023766,0.0041236,nan,../yolov7-sam/yolosam_full/cyto_full_yolosam_s22/results.csv
+cyto,YOLOv7+SAM-bilevel (full data),40,0.022821,0.0037216,0.0067573,nan,../yolov7-sam/yolosam_full/cyto_full_yolosam_s40/results.csv
+cyto,YOLOv7+SAM-bilevel (full data),42,0.025717,0.0057593,0.0091866,nan,../yolov7-sam/yolosam_full/cyto_full_yolosam_s42/results.csv
+cyto,cpsam+bilevel,22,0.39228564500808716,0.12337961047887802,0.0006756756920367479,0.5464764833450317,output_baselines/cpsam_bilevel/cyto4_cpsam_bilevel_seed22_3923/result.json
+cyto,cpsam+bilevel,40,0.39545518159866333,0.126663476228714,0.001686785602942109,0.5524569749832153,output_baselines/cpsam_bilevel/cyto4_cpsam_bilevel_seed40_3955/result.json
+cyto,cpsam+bilevel,42,0.47272586822509766,0.15679346024990082,0.004572873003780842,0.6315510869026184,output_baselines/cpsam_bilevel/cyto4_cpsam_bilevel_seed42_4727/result.json
+fluored,Cellpose-cpsam,22,0.42500603199005127,0.18633027374744415,0.0023262035101652145,0.5535774827003479,output_baselines/cellpose/fluocellRed10_cellpose-cpsam_seed22_4250/result.json
+fluored,Cellpose-cpsam,40,0.40911296010017395,0.14475089311599731,0.003419710323214531,0.540042519569397,output_baselines/cellpose/fluocellRed10_cellpose-cpsam_seed40_4091/result.json
+fluored,Cellpose-cpsam,42,0.3922478258609772,0.13185176253318787,0.0012341695837676525,0.530859649181366,output_baselines/cellpose/fluocellRed10_cellpose-cpsam_seed42_3922/result.json
+fluored,Cellpose-cyto3,22,0.4264920651912689,0.18693514168262482,0.0020284070633351803,0.5549796223640442,output_baselines/cellpose/fluocellRed10_cellpose-cyto3_seed22_4265/result.json
+fluored,Cellpose-cyto3,40,0.40944939851760864,0.14479295909404755,0.003419710323214531,0.5399690866470337,output_baselines/cellpose/fluocellRed10_cellpose-cyto3_seed40_4094/result.json
+fluored,Cellpose-cyto3,42,0.3894417881965637,0.1309986263513565,0.0012341695837676525,0.5269138216972351,output_baselines/cellpose/fluocellRed10_cellpose-cyto3_seed42_3894/result.json
+fluored,MetaTune-instance (flow head),22,0.09174206107854843,0.0007496252073906362,0.0,0.15618225932121277,output_instance/fluocellRed10_instance_img256_20260528-233140_917/instance_result.json
+fluored,MetaTune-instance (flow head),40,0.07196918874979019,0.0003326541045680642,0.0,0.12741470336914062,output_instance/fluocellRed10_instance_img256_20260528-224821_720/instance_result.json
+fluored,MetaTune-instance (flow head),42,0.08796326816082001,0.0009489303338341415,0.0,0.15006892383098602,output_instance/fluocellRed10_instance_img256_20260528-220636_880/instance_result.json
+fluored,MetaTune-instance (route-D),42,0.07507121562957764,0.0027839394751936197,0.0,0.13099046051502228,output_instance/fluocellRed10_instance_img256_20260528-220636_880/route_d_result.json
+fluored,StarDist,22,0.21725748479366302,0.029951246455311775,0.0,0.3226417005062103,output_baselines/stardist/fluocellRed10_stardist_seed22_2173/result.json
+fluored,StarDist,40,0.2216782420873642,0.020621752366423607,0.0,0.3467811942100525,output_baselines/stardist/fluocellRed10_stardist_seed40_2217/result.json
+fluored,StarDist,42,0.17288225889205933,0.012878344394266605,0.0,0.2793162763118744,output_baselines/stardist/fluocellRed10_stardist_seed42_1729/result.json
+fluored,YOLOv7+SAM-bilevel (N-shot),22,0.0020477,0.0,0.00038429,nan,../yolov7-sam/yolosam_runs/fluored10_yolosam_s22/results.csv
+fluored,YOLOv7+SAM-bilevel (N-shot),40,0.0023368,0.0,0.0004132,nan,../yolov7-sam/yolosam_runs/fluored10_yolosam_s40/results.csv
+fluored,YOLOv7+SAM-bilevel (N-shot),42,0.013735,0.0048836,0.0060571,nan,../yolov7-sam/yolosam_runs/fluored10_yolosam_s42/results.csv
+fluored,YOLOv7+SAM-bilevel (full data),22,0.01354,0.0026844,0.0046718,nan,../yolov7-sam/yolosam_full/fluored_full_yolosam_s22/results.csv
+fluored,YOLOv7+SAM-bilevel (full data),40,0.018406,0.0063125,0.0072933,nan,../yolov7-sam/yolosam_full/fluored_full_yolosam_s40/results.csv
+fluored,YOLOv7+SAM-bilevel (full data),42,0.018638,0.0051469,0.0068872,nan,../yolov7-sam/yolosam_full/fluored_full_yolosam_s42/results.csv
+fluored,cpsam+bilevel,22,0.38554078340530396,0.1540478765964508,0.0025574585888534784,0.5195192694664001,output_baselines/cpsam_bilevel/fluocellRed10_cpsam_bilevel_seed22_3855/result.json
+fluored,cpsam+bilevel,40,0.402805358171463,0.18568256497383118,0.004690295550972223,0.5373940467834473,output_baselines/cpsam_bilevel/fluocellRed10_cpsam_bilevel_seed40_4028/result.json
+fluored,cpsam+bilevel,42,0.1061219647526741,0.03507070988416672,0.0,0.15579210221767426,output_baselines/cpsam_bilevel/fluocellRed10_cpsam_bilevel_seed42_1061/result.json

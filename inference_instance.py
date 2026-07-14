@@ -27,7 +27,7 @@ def get_args():
     p.add_argument("--img_size", type=int, default=256)
     p.add_argument("--rank", type=int, default=4)
     p.add_argument("--vit_name", type=str, default="vit_b")
-    p.add_argument("--ckpt", default="/data1/li/Auto_SAMed/checkpoints/sam_vit_b_01ec64.pth")
+    p.add_argument("--ckpt", default="./checkpoints/sam_vit_b_01ec64.pth")
     p.add_argument("--gpu_id", type=int, default=0)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--output_dir", default=None, help="dir to write result.json; defaults to ckpt's parent")

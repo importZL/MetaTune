@@ -126,7 +126,7 @@ The YOLOv7+SAM-bilevel results (Section "Instance segmentation extension") requi
 
 ```bash
 python baselines/instance_to_yolo.py \
-    --out_root /path/to/yolo_CytoNuke \
+    --out_root "$DATA_ROOT/yolo_CytoNuke" \
     --train_imgs /data_root/CytoNuke/train/Images \
     --train_masks /data_root/CytoNuke/train/Masks_instance \
     --test_imgs   /data_root/CytoNuke/test/Images \

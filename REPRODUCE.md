@@ -37,7 +37,7 @@ cd ../../..
 The reproduction commands below assume the conda env `metatune` is active and `<DATA_ROOT>` is set:
 
 ```bash
-export DATA_ROOT=/path/to/datasets
+export DATA_ROOT=../datasets
 export CKPT=$PWD/checkpoints/sam_vit_b_01ec64.pth
 export PYTHON=python
 # Launch scripts also accept GPU, output, and checkpoint variables documented below.
@@ -60,7 +60,7 @@ done
 
 # Set LORA_CKPT to each generated best.pth before evaluation.
 DATASET=blood VOLUME_PATH="$DATA_ROOT/blood-cell/test/Images" \
-LORA_CKPT="/path/to/best.pth" bash inference.sh
+LORA_CKPT="./output/<run>/best.pth" bash inference.sh
 
 # DeepLab, UNet — see baselines/ for adapters (or use the public repos directly).
 # Vanilla SAM uses GT-derived point/box prompts at inference time; see paper Methods.
@@ -217,8 +217,8 @@ bash scripts/launch_stardist_gpu1.sh
 conda activate metatune
 
 # YOLOv7+SAM-bilevel (requires an external checkout and checkpoint)
-export YOLOSAM_ROOT=/path/to/yolov7-sam
-export YOLO_WEIGHTS=/path/to/detector/best.pt
+export YOLOSAM_ROOT=../yolov7-sam
+export YOLO_WEIGHTS=../checkpoints/detector-best.pt
 export SAM_CKPT="$CKPT"
 bash scripts/launch_yolosam_sweep.sh           # 4/10-shot
 bash scripts/launch_yolosam_fulldata.sh        # full training data
@@ -252,7 +252,7 @@ The MetaTune repository history contains neither the upstream repository URL nor
 
 ## Software versions used
 
-Dependency declarations are in `requirements.txt` and `environment.yml`; NumPy and OpenCV use compatible ranges in the Conda environment. The headline versions:
+Dependency declarations are in `environment.yml` and `environment-stardist.yml`; NumPy and OpenCV use compatible ranges in the Conda environment. The headline versions:
 
 | | Version |
 |---|---|
