@@ -12,26 +12,30 @@ directories (one for train, one for test), with pixel value = instance ID
 The existing binary /Masks dirs are not touched.
 """
 
-import os, sys
+import argparse
+import os
 import numpy as np
 from PIL import Image
 from pycocotools.coco import COCO
 from pycocotools import mask as mask_utils
 
-COCO_JSON = "/data2/li/workspace/data/CytoNuke/coco.json"
-IMG_ROOT  = "/data2/li/workspace/data/CytoNuke"  # has train/Images, test/Images
+def parse_args():
+    parser = argparse.ArgumentParser(description="Convert CytoNuke COCO annotations to instance-ID masks.")
+    parser.add_argument("--coco-json", required=True, help="Path to the CytoNuke COCO annotation JSON.")
+    parser.add_argument("--data-root", required=True, help="Dataset root containing train/Images and test/Images.")
+    return parser.parse_args()
 
-def regen():
-    coco = COCO(COCO_JSON)
+def regen(coco_json, data_root):
+    coco = COCO(coco_json)
     # Build filename -> split lookup
     splits = {}
     for split in ("train", "test"):
-        d = os.path.join(IMG_ROOT, split, "Images")
+        d = os.path.join(data_root, split, "Images")
         if not os.path.isdir(d):
             continue
         for f in os.listdir(d):
             splits[f] = split
-        os.makedirs(os.path.join(IMG_ROOT, split, "Masks_instance"), exist_ok=True)
+        os.makedirs(os.path.join(data_root, split, "Masks_instance"), exist_ok=True)
 
     for img_id in coco.getImgIds():
         info = coco.loadImgs([img_id])[0]
@@ -47,9 +51,10 @@ def regen():
             m = coco.annToMask(ann).astype(bool)
             # Later instances overwrite earlier ones in overlapping regions (typical convention).
             label[m] = i
-        out = os.path.join(IMG_ROOT, split, "Masks_instance", fn)
+        out = os.path.join(data_root, split, "Masks_instance", fn)
         Image.fromarray(label).save(out)
     print(f"Done. Train+test images processed: {len([f for f in splits])}")
 
 if __name__ == "__main__":
-    regen()
+    args = parse_args()
+    regen(args.coco_json, args.data_root)

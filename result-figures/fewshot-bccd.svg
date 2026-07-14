@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="161.672pt" version="1.1" viewBox="0 0 170.282812 161.672" width="170.282812pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 161.672 
+L 170.282812 161.672 
+L 170.282812 0 
+L -0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 43.291406 150.972 
+L 126.991406 150.972 
+L 126.991406 42.252 
+L 43.291406 42.252 
+z
+" style="fill:none;"/>
+   </g>
+   <g id="patch_3">
+    <path clip-path="url(#pe70beaf143)" d="M 47.095952 357.664015 
+L 72.459588 357.664015 
+L 72.459588 98.265536 
+L 47.095952 98.265536 
+z
+" style="fill:#e8c047;"/>
+   </g>
+   <g id="patch_4">
+    <path clip-path="url(#pe70beaf143)" d="M 72.459588 357.664015 
+L 97.823224 357.664015 
+L 97.823224 96.887589 
+L 72.459588 96.887589 
+z
+" style="fill:#96c36e;"/>
+   </g>
+   <g id="patch_5">
+    <path clip-path="url(#pe70beaf143)" d="M 97.823224 357.664015 
+L 123.186861 357.664015 
+L 123.186861 58.30508 
+L 97.823224 58.30508 
+z
+" style="fill:#b78e72;"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="m50aa68157b" style="stroke:#000000;stroke-width:0.8;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="43.291406" xlink:href="#m50aa68157b" y="150.972"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 36.291406, 153.119344)" x="36.291406" y="153.119344">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="43.291406" xlink:href="#m50aa68157b" y="116.523331"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 36.291406, 118.670675)" x="36.291406" y="118.670675">0.7</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_3">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="43.291406" xlink:href="#m50aa68157b" y="82.074662"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 36.291406, 84.222005)" x="36.291406" y="84.222005">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_4">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="43.291406" xlink:href="#m50aa68157b" y="47.625992"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 36.291406, 49.773336)" x="36.291406" y="49.773336">0.9</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 32.951406, 38.8851)" x="32.951406" y="38.8851">Dice</text>
+    </g>
+   </g>
+   <g id="LineCollection_1">
+    <path clip-path="url(#pe70beaf143)" d="M 59.77777 115.834357 
+L 59.77777 80.696715 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="LineCollection_2">
+    <path clip-path="url(#pe70beaf143)" d="M 85.141406 115.489871 
+L 85.141406 78.285308 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="LineCollection_3">
+    <path clip-path="url(#pe70beaf143)" d="M 110.505043 59.33854 
+L 110.505043 57.27162 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 43.291406 150.972 
+L 43.291406 42.252 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 43.291406 150.972 
+L 126.991406 150.972 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="text_6">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(61.536094 77.743989)rotate(-90)">0.75</text>
+   </g>
+   <g id="text_7">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(86.89973 75.332582)rotate(-90)">0.76</text>
+   </g>
+   <g id="text_8">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(112.263366 54.318894)rotate(-90)">0.87</text>
+   </g>
+   <g id="text_9">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 85.141406, 30.816)" x="85.141406" y="30.816">Blood cell segmentation</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_8">
+     <path d="M 9.6 13.894688 
+L 21.6 13.894688 
+L 21.6 9.694688 
+L 9.6 9.694688 
+z
+" style="fill:#e8c047;"/>
+    </g>
+    <g id="text_10">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 26.4, 13.894688)" x="26.4" y="13.894688">PerSAM-F</text>
+    </g>
+    <g id="patch_9">
+     <path d="M 66.40125 13.894688 
+L 78.40125 13.894688 
+L 78.40125 9.694688 
+L 66.40125 9.694688 
+z
+" style="fill:#96c36e;"/>
+    </g>
+    <g id="text_11">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 83.20125, 13.894688)" x="83.20125" y="13.894688">Matcher</text>
+    </g>
+    <g id="patch_10">
+     <path d="M 116.873437 13.894688 
+L 128.873437 13.894688 
+L 128.873437 9.694688 
+L 116.873437 9.694688 
+z
+" style="fill:#b78e72;"/>
+    </g>
+    <g id="text_12">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 133.673438, 13.894688)" x="133.673438" y="13.894688">MetaTune</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe70beaf143">
+   <rect height="108.72" width="83.7" x="43.291406" y="42.252"/>
+  </clipPath>
+ </defs>
+</svg>

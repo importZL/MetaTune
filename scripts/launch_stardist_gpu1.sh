@@ -2,9 +2,11 @@
 # StarDist sweep: 2 datasets x 3 seeds = 6 runs on GPU 1.
 
 set -e
-cd /data2/li/workspace/SAMed
+REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+cd "$REPO_ROOT"
 mkdir -p logs
-PY=/home/li/anaconda/envs/stardist/bin/python
+PY=${PYTHON:-python}
 LOG=logs/stardist_gpu1.log
 
 run() {
@@ -18,14 +20,14 @@ run() {
         --output ./output_baselines/stardist >> $LOG 2>&1
 }
 
-CYTO_TR_IMG=/data2/li/workspace/data/CytoNuke/train/Images
-CYTO_TR_MSK=/data2/li/workspace/data/CytoNuke/train/Masks_instance
-CYTO_TE_IMG=/data2/li/workspace/data/CytoNuke/test/Images
-CYTO_TE_MSK=/data2/li/workspace/data/CytoNuke/test/Masks_instance
-FL_TR_IMG=/data2/li/workspace/data/fluocell_v2/red/train/Images
-FL_TR_MSK=/data2/li/workspace/data/fluocell_v2/red/train/Masks_instance
-FL_TE_IMG=/data2/li/workspace/data/fluocell_v2/red/test/Images
-FL_TE_MSK=/data2/li/workspace/data/fluocell_v2/red/test/Masks_instance
+CYTO_TR_IMG=${DATA_ROOT}/CytoNuke/train/Images
+CYTO_TR_MSK=${DATA_ROOT}/CytoNuke/train/Masks_instance
+CYTO_TE_IMG=${DATA_ROOT}/CytoNuke/test/Images
+CYTO_TE_MSK=${DATA_ROOT}/CytoNuke/test/Masks_instance
+FL_TR_IMG=${DATA_ROOT}/fluocell_v2/red/train/Images
+FL_TR_MSK=${DATA_ROOT}/fluocell_v2/red/train/Masks_instance
+FL_TE_IMG=${DATA_ROOT}/fluocell_v2/red/test/Images
+FL_TE_MSK=${DATA_ROOT}/fluocell_v2/red/test/Masks_instance
 
 for seed in 42 40 22; do
     run cyto         4 "$CYTO_TR_IMG" "$CYTO_TR_MSK" "$CYTO_TE_IMG" "$CYTO_TE_MSK" $seed

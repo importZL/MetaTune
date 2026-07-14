@@ -6,23 +6,26 @@ image and its `segmentation` field is a LIST of polygons (one polygon per
 instance). So one COCO annotation = one image's worth of instances, not one
 instance.
 
-Output: /data2/li/workspace/data/fluocell_v2/red/{train,test}/Masks_instance/{fname}
+Output: DATA_ROOT/{train,test}/Masks_instance/{fname}
 """
 
-import os, json
+import argparse
+import json
+import os
 import numpy as np
 from PIL import Image
 from pycocotools import mask as mask_utils
 
-JSONS = [
-    ("/data2/li/workspace/data/fluocell_v2/red/trainval_ori/ground_truths/COCO/annotations_red_trainval.json",
-     "/data2/li/workspace/data/fluocell_v2/red/train"),
-    ("/data2/li/workspace/data/fluocell_v2/red/test_ori/ground_truths/COCO/annotations_red_test.json",
-     "/data2/li/workspace/data/fluocell_v2/red/test"),
-]
+def parse_args():
+    parser = argparse.ArgumentParser(description="Convert FluoRed COCO annotations to instance-ID masks.")
+    parser.add_argument("--train-json", required=True, help="Training/validation COCO annotation JSON.")
+    parser.add_argument("--test-json", required=True, help="Test COCO annotation JSON.")
+    parser.add_argument("--data-root", required=True, help="FluoRed root containing train and test directories.")
+    return parser.parse_args()
 
-def regen():
-    for json_path, out_root in JSONS:
+def regen(train_json, test_json, data_root):
+    inputs = [(train_json, os.path.join(data_root, "train")), (test_json, os.path.join(data_root, "test"))]
+    for json_path, out_root in inputs:
         coco = json.load(open(json_path))
         # id -> (filename, H, W)
         info = {im["id"]: (im["file_name"], im["height"], im["width"]) for im in coco["images"]}
@@ -63,4 +66,5 @@ def regen():
         print(f"{out_root}: wrote {n_written} instance masks")
 
 if __name__ == "__main__":
-    regen()
+    args = parse_args()
+    regen(args.train_json, args.test_json, args.data_root)

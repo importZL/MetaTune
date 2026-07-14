@@ -4,10 +4,12 @@
 # LR mirror: each parameter set keeps its original LR; only slots swap.
 
 set -e
-cd /data2/li/workspace/SAMed
+REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+cd "$REPO_ROOT"
 mkdir -p logs
 
-PY=/home/li/anaconda/envs/yolo/bin/python
+PY=${PYTHON:-python}
 LOG=logs/swap_gpu0.log
 
 run() {
@@ -17,7 +19,7 @@ run() {
         --root_path "$root" \
         --output ./output_swap \
         --module sam_lora_mask_decoder \
-        --max_epoch 100 \
+        --max_epochs 100 \
         --num_data 4 \
         --wandb_mode disabled \
         --batch_size 1 \
@@ -34,18 +36,18 @@ run() {
 }
 
 # blood: original (non-meta=LoRA)=5e-3, (meta=prompt)=1e-3 → swap: base=1e-3 (prompt), prompt=5e-3 (LoRA)
-run blood        /data2/li/workspace/data/blood-cell/train/Images                                              1e-3 5e-3 42
-run blood        /data2/li/workspace/data/blood-cell/train/Images                                              1e-3 5e-3 40
-run blood        /data2/li/workspace/data/blood-cell/train/Images                                              1e-3 5e-3 22
+run blood        ${DATA_ROOT}/blood-cell/train/Images                                              1e-3 5e-3 42
+run blood        ${DATA_ROOT}/blood-cell/train/Images                                              1e-3 5e-3 40
+run blood        ${DATA_ROOT}/blood-cell/train/Images                                              1e-3 5e-3 22
 
 # osteosarcoma: original 1e-3 / 1e-3 → swap 1e-3 / 1e-3
-run osteosarcoma /data2/li/workspace/data/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        1e-3 1e-3 42
-run osteosarcoma /data2/li/workspace/data/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        1e-3 1e-3 40
-run osteosarcoma /data2/li/workspace/data/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        1e-3 1e-3 22
+run osteosarcoma ${DATA_ROOT}/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        1e-3 1e-3 42
+run osteosarcoma ${DATA_ROOT}/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        1e-3 1e-3 40
+run osteosarcoma ${DATA_ROOT}/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        1e-3 1e-3 22
 
 # cellBT474: original 5e-3 / 1e-3 → swap 1e-3 / 5e-3
-run cellBT474    /data2/li/workspace/data/LiveCell_datasets/BT474/train/Images                                 1e-3 5e-3 42
-run cellBT474    /data2/li/workspace/data/LiveCell_datasets/BT474/train/Images                                 1e-3 5e-3 40
-run cellBT474    /data2/li/workspace/data/LiveCell_datasets/BT474/train/Images                                 1e-3 5e-3 22
+run cellBT474    ${DATA_ROOT}/LiveCell_datasets/BT474/train/Images                                 1e-3 5e-3 42
+run cellBT474    ${DATA_ROOT}/LiveCell_datasets/BT474/train/Images                                 1e-3 5e-3 40
+run cellBT474    ${DATA_ROOT}/LiveCell_datasets/BT474/train/Images                                 1e-3 5e-3 22
 
 echo "===== $(date '+%F %T')  GPU 0 queue DONE =====" | tee -a $LOG

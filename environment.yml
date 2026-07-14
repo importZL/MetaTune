@@ -29,8 +29,8 @@ dependencies:
     - monai==1.5.2
     - ml-collections==1.1.0
     - nibabel==5.4.2
-    - numpy==1.22.0
-    - opencv-python==4.13.0.92
+    - numpy<2.0
+    - opencv-python<4.10
     - Pillow>=10.0
     - pycocotools==2.0.7
     - safetensors==0.7.0

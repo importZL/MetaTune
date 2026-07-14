@@ -14,10 +14,10 @@
 # Cellpose / Cellpose-SAM / cpsam+BLO-SAM-bilevel, StarDist) are NOT included
 # in this v1 deposit.
 #
-# Output: /data2/li/workspace/zenodo_metatune_v1.tar.gz
+# Output: $WORK/zenodo_metatune_v1.tar.gz
 
 set -e
-WORK=/data2/li/workspace
+WORK=${WORK:-$PWD}
 SRC_SAMED=$WORK/SAMed
 STAGE=$WORK/zenodo_stage
 OUT_ROOT="metatune_zenodo_v1"

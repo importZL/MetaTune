@@ -2,10 +2,12 @@
 # Cellpose sweep: 2 datasets x 3 seeds x 2 models (cpsam + cyto3) = 12 runs.
 
 set -e
-cd /data2/li/workspace/SAMed
+REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+cd "$REPO_ROOT"
 mkdir -p logs
 
-PY=/home/li/anaconda/envs/yolo/bin/python
+PY=${PYTHON:-python}
 LOG=logs/cellpose_gpu0.log
 
 run() {
@@ -19,15 +21,15 @@ run() {
         --output ./output_baselines/cellpose >> $LOG 2>&1
 }
 
-CYTO_TRAIN_IMG=/data2/li/workspace/data/CytoNuke/train/Images
-CYTO_TRAIN_MSK=/data2/li/workspace/data/CytoNuke/train/Masks_instance
-CYTO_TEST_IMG=/data2/li/workspace/data/CytoNuke/test/Images
-CYTO_TEST_MSK=/data2/li/workspace/data/CytoNuke/test/Masks_instance
+CYTO_TRAIN_IMG=${DATA_ROOT}/CytoNuke/train/Images
+CYTO_TRAIN_MSK=${DATA_ROOT}/CytoNuke/train/Masks_instance
+CYTO_TEST_IMG=${DATA_ROOT}/CytoNuke/test/Images
+CYTO_TEST_MSK=${DATA_ROOT}/CytoNuke/test/Masks_instance
 
-FLUO_TRAIN_IMG=/data2/li/workspace/data/fluocell_v2/red/train/Images
-FLUO_TRAIN_MSK=/data2/li/workspace/data/fluocell_v2/red/train/Masks_instance
-FLUO_TEST_IMG=/data2/li/workspace/data/fluocell_v2/red/test/Images
-FLUO_TEST_MSK=/data2/li/workspace/data/fluocell_v2/red/test/Masks_instance
+FLUO_TRAIN_IMG=${DATA_ROOT}/fluocell_v2/red/train/Images
+FLUO_TRAIN_MSK=${DATA_ROOT}/fluocell_v2/red/train/Masks_instance
+FLUO_TEST_IMG=${DATA_ROOT}/fluocell_v2/red/test/Images
+FLUO_TEST_MSK=${DATA_ROOT}/fluocell_v2/red/test/Masks_instance
 
 for pre in cpsam cyto3; do
     for seed in 42 40 22; do

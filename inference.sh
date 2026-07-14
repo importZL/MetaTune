@@ -1,9 +1,15 @@
-# Example inference script. Edit --volume_path / --lora_ckpt / --dataset per run.
-python -W ignore inference.py \
-    --volume_path /path/to/CytoNuke/test/Images \
-    --lora_ckpt ./output/cyto4_auto_first_img256_<timestamp>/best.pth \
-    --gpu_id 0 \
+VOLUME_PATH=${VOLUME_PATH:?Set VOLUME_PATH to the test/Images directory}
+LORA_CKPT=${LORA_CKPT:?Set LORA_CKPT to the trained best.pth}
+DATASET=${DATASET:?Set DATASET to the dataset code}
+GPU=${GPU:-0}
+SAM_CKPT=${SAM_CKPT:-./checkpoints/sam_vit_b_01ec64.pth}
+OUTPUT_DIR=${OUTPUT_DIR:-./predictions/$DATASET}
+${PYTHON:-python} -W ignore inference.py \
+    --volume_path "$VOLUME_PATH" \
+    --lora_ckpt "$LORA_CKPT" \
+    --gpu_id "$GPU" \
     --module sam_lora_mask_decoder \
-    --dataset cyto \
+    --dataset "$DATASET" \
     --num_classes 1 \
-    --ckpt ./checkpoints/sam_vit_b_01ec64.pth
+    --ckpt "$SAM_CKPT" \
+    --output_dir "$OUTPUT_DIR"

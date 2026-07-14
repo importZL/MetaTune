@@ -72,7 +72,9 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
                                dataset=args.dataset,
                                transform=transforms.Compose(
                                    [RandomGenerator(output_size=[args.img_size, args.img_size], low_res=[low_res, low_res])]))
-    num_train = int(len(db_train)*0.5)
+    if not 0 < args.train_split < 1:
+        raise ValueError("--train_split must be between 0 and 1")
+    num_train = int(len(db_train) * args.train_split)
     num_valid = len(db_train) - num_train
     selector = range(len(db_train))
     logging.info("The length of train set is: {}".format(num_train))
@@ -99,8 +101,8 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
     optimizer = optim.AdamW(
         list(p for n, p in model.named_parameters() if (p.requires_grad and ("no_mask_embed" not in n))),
         lr=base_lr, betas=(0.9, 0.999), weight_decay=0.1)
-    optimizer_prompt = optim.AdamW(
-        list(p for n, p in model.named_parameters() if (p.requires_grad and ("no_mask_embed" in n))),
+    optimizer_prompt = None if args.freeze_prompt else optim.AdamW(
+        [p for n, p in model.named_parameters() if p.requires_grad and "no_mask_embed" in n],
         lr=base_lr, betas=(0.9, 0.999), weight_decay=0.1)
     
     
@@ -130,10 +132,12 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
             # if 'vanilla' in args.exp_type:
             # logger.log({'info/stage2_loss': loss})
             optimizer.zero_grad()
-            optimizer_prompt.zero_grad()
+            if optimizer_prompt is not None:
+                optimizer_prompt.zero_grad()
             loss.backward()
             optimizer.step()
-            optimizer_prompt.step()
+            if optimizer_prompt is not None:
+                optimizer_prompt.step()
             # else:
             #     optimizer.zero_grad()
             #     loss.backward()

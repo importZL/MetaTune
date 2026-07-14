@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="142.350688pt" version="1.1" viewBox="0 0 117.941406 142.350688" width="117.941406pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 142.350688 
+L 117.941406 142.350688 
+L 117.941406 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 23.541406 131.650688 
+L 107.241406 131.650688 
+L 107.241406 22.930688 
+L 23.541406 22.930688 
+z
+" style="fill:none;"/>
+   </g>
+   <g id="patch_3">
+    <path clip-path="url(#pb746814b64)" d="M 27.345952 239.400935 
+L 52.709588 239.400935 
+L 52.709588 120.516495 
+L 27.345952 120.516495 
+z
+" style="fill:#e8c047;"/>
+   </g>
+   <g id="patch_4">
+    <path clip-path="url(#pb746814b64)" d="M 52.709588 239.400935 
+L 78.073224 239.400935 
+L 78.073224 49.401332 
+L 52.709588 49.401332 
+z
+" style="fill:#96c36e;"/>
+   </g>
+   <g id="patch_5">
+    <path clip-path="url(#pb746814b64)" d="M 78.073224 239.400935 
+L 103.436861 239.400935 
+L 103.436861 35.034632 
+L 78.073224 35.034632 
+z
+" style="fill:#b78e72;"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="md6afa00094" style="stroke:#000000;stroke-width:0.8;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="23.541406" xlink:href="#md6afa00094" y="131.650688"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 16.541406, 133.798031)" x="16.541406" y="133.798031">0.3</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="23.541406" xlink:href="#md6afa00094" y="95.733938"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 16.541406, 97.881282)" x="16.541406" y="97.881282">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_3">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="23.541406" xlink:href="#md6afa00094" y="59.817189"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 16.541406, 61.964533)" x="16.541406" y="61.964533">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_4">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="23.541406" xlink:href="#md6afa00094" y="23.90044"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 16.541406, 26.047783)" x="16.541406" y="26.047783">0.6</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 13.201406, 19.563788)" x="13.201406" y="19.563788">Dice</text>
+    </g>
+   </g>
+   <g id="LineCollection_1">
+    <path clip-path="url(#pb746814b64)" d="M 40.02777 121.23483 
+L 40.02777 119.79816 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="LineCollection_2">
+    <path clip-path="url(#pb746814b64)" d="M 65.391406 58.021352 
+L 65.391406 40.781312 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="LineCollection_3">
+    <path clip-path="url(#pb746814b64)" d="M 90.755043 36.830469 
+L 90.755043 33.238795 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 23.541406 131.650688 
+L 23.541406 22.930688 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 23.541406 131.650688 
+L 107.241406 131.650688 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="text_6">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(41.786094 116.40501)rotate(-90)">0.33</text>
+   </g>
+   <g id="text_7">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(67.14973 37.388162)rotate(-90)">0.53</text>
+   </g>
+   <g id="text_8">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(92.513366 29.845645)rotate(-90)">0.57</text>
+   </g>
+   <g id="text_9">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 65.391406, 11.494688)" x="65.391406" y="11.494688">Liver cancer cell segmentation</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb746814b64">
+   <rect height="108.72" width="83.7" x="23.541406" y="22.930688"/>
+  </clipPath>
+ </defs>
+</svg>

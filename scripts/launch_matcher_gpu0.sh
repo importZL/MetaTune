@@ -3,10 +3,12 @@
 # Training-free DINOv2 + SAM. Uses the fresh `matcher` conda env.
 
 set -e
-cd /data2/li/workspace/SAMed
+REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+cd "$REPO_ROOT"
 mkdir -p logs
 
-PY=/home/li/anaconda/envs/matcher/bin/python
+PY=${PYTHON:-python}
 LOG=logs/matcher_gpu0.log
 
 run() {
@@ -24,17 +26,17 @@ run() {
 }
 
 for seed in 42 40 22; do
-    run blood        4 /data2/li/workspace/data/blood-cell/train/Images                                              /data2/li/workspace/data/blood-cell/test/Images                                              $seed
-    run osteosarcoma 4 /data2/li/workspace/data/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        /data2/li/workspace/data/CellPose_datasets/bone_osteosarcoma_cell_dataset/test/Images        $seed
-    run cellBT474    4 /data2/li/workspace/data/LiveCell_datasets/BT474/train/Images                                 /data2/li/workspace/data/LiveCell_datasets/BT474/test/Images                                 $seed
-    run cellHuh7     4 /data2/li/workspace/data/LiveCell_datasets/Huh7/train/Images                                  /data2/li/workspace/data/LiveCell_datasets/Huh7/test/Images                                  $seed
-    run multimodal   4 /data2/li/workspace/data/multi-modal-bio/train/Images                                         /data2/li/workspace/data/multi-modal-bio/test/Images                                         $seed
-    run cyto         4 /data2/li/workspace/data/CytoNuke/train/Images                                                /data2/li/workspace/data/CytoNuke/test/Images                                                $seed
+    run blood        4 ${DATA_ROOT}/blood-cell/train/Images                                              ${DATA_ROOT}/blood-cell/test/Images                                              $seed
+    run osteosarcoma 4 ${DATA_ROOT}/CellPose_datasets/bone_osteosarcoma_cell_dataset/train/Images        ${DATA_ROOT}/CellPose_datasets/bone_osteosarcoma_cell_dataset/test/Images        $seed
+    run cellBT474    4 ${DATA_ROOT}/LiveCell_datasets/BT474/train/Images                                 ${DATA_ROOT}/LiveCell_datasets/BT474/test/Images                                 $seed
+    run cellHuh7     4 ${DATA_ROOT}/LiveCell_datasets/Huh7/train/Images                                  ${DATA_ROOT}/LiveCell_datasets/Huh7/test/Images                                  $seed
+    run multimodal   4 ${DATA_ROOT}/multi-modal-bio/train/Images                                         ${DATA_ROOT}/multi-modal-bio/test/Images                                         $seed
+    run cyto         4 ${DATA_ROOT}/CytoNuke/train/Images                                                ${DATA_ROOT}/CytoNuke/test/Images                                                $seed
 done
 
 for seed in 42 40 22; do
-    run fluocellRed 10 /data2/li/workspace/data/fluocell_v2/red/train/Images                                         /data2/li/workspace/data/fluocell_v2/red/test/Images                                         $seed
-    run sartorius   10 /data2/li/workspace/data/sartorius/train/Images                                               /data2/li/workspace/data/sartorius/test/Images                                               $seed
+    run fluocellRed 10 ${DATA_ROOT}/fluocell_v2/red/train/Images                                         ${DATA_ROOT}/fluocell_v2/red/test/Images                                         $seed
+    run sartorius   10 ${DATA_ROOT}/sartorius/train/Images                                               ${DATA_ROOT}/sartorius/test/Images                                               $seed
 done
 
 echo "===== $(date '+%F %T')  Matcher sweep DONE =====" | tee -a $LOG

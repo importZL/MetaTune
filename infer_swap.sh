@@ -4,22 +4,24 @@
 # Example: ./infer_swap.sh 0 blood osteosarcoma cellBT474
 
 set -e
-cd /data2/li/workspace/SAMed
+REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+cd "$REPO_ROOT"
 
 GPU=$1
 shift
-PY=/home/li/anaconda/envs/yolo/bin/python
+PY=${PYTHON:-python}
 LOG=logs/infer_swap_gpu${GPU}.log
 mkdir -p logs
 
 # dataset code → test-set Images dir
 declare -A TEST_PATH
-TEST_PATH[blood]=/data2/li/workspace/data/blood-cell/test/Images
-TEST_PATH[osteosarcoma]=/data2/li/workspace/data/CellPose_datasets/bone_osteosarcoma_cell_dataset/test/Images
-TEST_PATH[cellBT474]=/data2/li/workspace/data/LiveCell_datasets/BT474/test/Images
-TEST_PATH[cellHuh7]=/data2/li/workspace/data/LiveCell_datasets/Huh7/test/Images
-TEST_PATH[multimodal]=/data2/li/workspace/data/multi-modal-bio/test/Images
-TEST_PATH[cyto]=/data2/li/workspace/data/CytoNuke/test/Images
+TEST_PATH[blood]=${DATA_ROOT}/blood-cell/test/Images
+TEST_PATH[osteosarcoma]=${DATA_ROOT}/CellPose_datasets/bone_osteosarcoma_cell_dataset/test/Images
+TEST_PATH[cellBT474]=${DATA_ROOT}/LiveCell_datasets/BT474/test/Images
+TEST_PATH[cellHuh7]=${DATA_ROOT}/LiveCell_datasets/Huh7/test/Images
+TEST_PATH[multimodal]=${DATA_ROOT}/multi-modal-bio/test/Images
+TEST_PATH[cyto]=${DATA_ROOT}/CytoNuke/test/Images
 
 # dataset code → directory prefix used in output_swap/
 # (cellBT474 → cellBT4744, cellHuh7 → cellHuh74, others append num_data directly)

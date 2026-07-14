@@ -77,7 +77,9 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
         ]),
     )
     
-    num_train = int(len(db_train)*0.5)
+    if not 0 < args.train_split < 1:
+        raise ValueError("--train_split must be between 0 and 1")
+    num_train = int(len(db_train) * args.train_split)
     num_valid = len(db_train) - num_train
     selector = range(len(db_train))
     logging.info("The length of train set is: {}".format(num_train))

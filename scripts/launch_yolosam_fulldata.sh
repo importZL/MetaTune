@@ -4,13 +4,15 @@
 # gap to Cellpose-SAM. Re-uses the cell_count-pretrained backbone.
 
 set -e
-cd /data2/li/workspace/yolov7-sam
-mkdir -p /data2/li/workspace/SAMed/logs
+REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+cd "${YOLOSAM_ROOT:?Set YOLOSAM_ROOT to the checked-out yolov7-sam repository}"
+mkdir -p ${REPO_ROOT}/logs
 
-PY=/home/li/anaconda/envs/yolo/bin/python
-LOG=/data2/li/workspace/SAMed/logs/yolosam_fulldata.log
-WEIGHTS=/data/li/seg_baselines/yolov7-segmentation/runs/train-seg/cell_count-yolov7-seg/weights/best.pt
-SAM_CKPT=/data1/li/Auto_SAMed/checkpoints/sam_vit_b_01ec64.pth
+PY=${PYTHON:-python}
+LOG=${REPO_ROOT}/logs/yolosam_fulldata.log
+WEIGHTS=${YOLO_WEIGHTS:?Set YOLO_WEIGHTS to the pretrained detector checkpoint}
+SAM_CKPT=${SAM_CKPT:-${REPO_ROOT}/checkpoints/sam_vit_b_01ec64.pth}
 
 run() {
     local ds=$1 yaml_p=$2 seed=$3 gpu=$4
@@ -31,8 +33,8 @@ run() {
 }
 
 for seed in 42 40 22; do
-    run cyto    /data2/li/workspace/data/yolo_CytoNuke/data_full.yaml $seed 1
-    run fluored /data2/li/workspace/data/yolo_fluored/data_full.yaml  $seed 1
+    run cyto    ${DATA_ROOT}/yolo_CytoNuke/data_full.yaml $seed 1
+    run fluored ${DATA_ROOT}/yolo_fluored/data_full.yaml  $seed 1
 done
 
 echo "===== $(date '+%F %T')  YOLOv7+SAM full-data sweep DONE =====" | tee -a $LOG

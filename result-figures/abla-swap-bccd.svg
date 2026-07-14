@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="161.672pt" version="1.1" viewBox="0 0 121.8225 161.672" width="121.8225pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 161.672 
+L 121.8225 161.672 
+L 121.8225 0 
+L -0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 38.59125 150.972 
+L 83.23125 150.972 
+L 83.23125 42.252 
+L 38.59125 42.252 
+z
+" style="fill:none;"/>
+   </g>
+   <g id="patch_3">
+    <path clip-path="url(#p222a3a1c10)" d="M 40.620341 906.711001 
+L 60.91125 906.711001 
+L 60.91125 107.233605 
+L 40.620341 107.233605 
+z
+" style="fill:#f5c6c4;"/>
+   </g>
+   <g id="patch_4">
+    <path clip-path="url(#p222a3a1c10)" d="M 60.91125 906.711001 
+L 81.202159 906.711001 
+L 81.202159 86.009935 
+L 60.91125 86.009935 
+z
+" style="fill:#e8c047;"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="mf5bf33b6b2" style="stroke:#000000;stroke-width:0.8;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="38.59125" xlink:href="#mf5bf33b6b2" y="150.972"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 31.59125, 153.119344)" x="31.59125" y="153.119344">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="38.59125" xlink:href="#mf5bf33b6b2" y="56.504625"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 31.59125, 58.651969)" x="31.59125" y="58.651969">0.9</text>
+     </g>
+    </g>
+    <g id="text_3">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 28.25125, 38.8851)" x="28.25125" y="38.8851">Dice</text>
+    </g>
+   </g>
+   <g id="LineCollection_1">
+    <path clip-path="url(#p222a3a1c10)" d="M 50.765795 121.127698 
+L 50.765795 93.339513 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="LineCollection_2">
+    <path clip-path="url(#p222a3a1c10)" d="M 71.056705 88.603156 
+L 71.056705 83.416714 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 38.59125 150.972 
+L 38.59125 42.252 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 38.59125 150.972 
+L 83.23125 150.972 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="text_4">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(53.031392 72.381175)rotate(-90)">0.85</text>
+   </g>
+   <g id="text_5">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(73.322301 62.458377)rotate(-90)">0.87</text>
+   </g>
+   <g id="text_6">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 60.91125, 30.816)" x="60.91125" y="30.816">Blood cell segmentation</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_7">
+     <path d="M 9.6 13.967812 
+L 21.6 13.967812 
+L 21.6 9.767812 
+L 9.6 9.767812 
+z
+" style="fill:#f5c6c4;"/>
+    </g>
+    <g id="text_7">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 26.4, 13.967812)" x="26.4" y="13.967812">Swap meta</text>
+    </g>
+    <g id="patch_8">
+     <path d="M 68.413125 13.967812 
+L 80.413125 13.967812 
+L 80.413125 9.767812 
+L 68.413125 9.767812 
+z
+" style="fill:#e8c047;"/>
+    </g>
+    <g id="text_8">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 85.213125, 13.967812)" x="85.213125" y="13.967812">MetaTune</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p222a3a1c10">
+   <rect height="108.72" width="44.64" x="38.59125" y="42.252"/>
+  </clipPath>
+ </defs>
+</svg>

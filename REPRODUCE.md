@@ -1,6 +1,6 @@
 # REPRODUCE.md — figure-by-figure reproduction guide
 
-This document gives the exact commands to reproduce every figure and table of the paper. Each section is self-contained; you can jump straight to the figure / table you want.
+This guide maps repository procedures to manuscript Figures 1–7 and Supplementary Figures S1–S11. It distinguishes runnable MetaTune workflows from comparison settings whose source or provenance is not present in this repository.
 
 ## Prerequisites
 
@@ -39,30 +39,37 @@ The reproduction commands below assume the conda env `metatune` is active and `<
 ```bash
 export DATA_ROOT=/path/to/datasets
 export CKPT=$PWD/checkpoints/sam_vit_b_01ec64.pth
+export PYTHON=python
+# Launch scripts also accept GPU, output, and checkpoint variables documented below.
 ```
 
 ---
 
+## Figure 1 — Method overview
+
+Figure 1 is a conceptual diagram; the source asset is `figures/method_overview.png` and requires no experiment.
+
 ## Figure 2 — MetaTune vs DeepLab / UNet / vanilla SAM on 8 tasks
 
 ```bash
-# MetaTune (3 seeds per task)
+# Configure each task with the paths and learning rates in HYPERPARAMETERS.md. Example: BCCD.
 for seed in 42 40 22; do
-  for ds in blood osteosarcoma cellBT474 cellHuh7 multimodal cyto fluocellRed sartorius; do
-    # See HYPERPARAMETERS.md for per-task LRs; example for blood:
-    bash train.sh   # set --dataset blood --base_lr 5e-3 --prompt_base_lr 1e-3 --seed $seed
-    bash inference.sh   # auto-uses the best.pth from the just-trained run
-  done
+  DATASET=blood TRAIN_IMAGES="$DATA_ROOT/blood-cell/train/Images" \
+  BASE_LR=5e-3 PROMPT_LR=1e-3 SEED="$seed" NUM_DATA=4 bash train.sh
 done
+
+# Set LORA_CKPT to each generated best.pth before evaluation.
+DATASET=blood VOLUME_PATH="$DATA_ROOT/blood-cell/test/Images" \
+LORA_CKPT="/path/to/best.pth" bash inference.sh
 
 # DeepLab, UNet — see baselines/ for adapters (or use the public repos directly).
 # Vanilla SAM uses GT-derived point/box prompts at inference time; see paper Methods.
 
 # Render the figure:
-jupyter notebook figures.ipynb   # run cell 2
+# Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
-Expected output: 8 SVG files at `result-figures/result1-{bccd,osteo,bt474,huh7,multimodal,cyto,fluored,sartorius}.svg`.
+The repository does not include the original plotting notebook; use the resulting scores to recreate the manuscript panels.
 
 ## Figure 3 — MetaTune vs MedSA / SAMed / uSAM on 8 tasks
 
@@ -72,7 +79,7 @@ Expected output: 8 SVG files at `result-figures/result1-{bccd,osteo,bt474,huh7,m
 # MedSA, SAMed-style, uSAM baselines — see paper References [23], [24], [3] respectively.
 # Run with the same N supports per task; see HYPERPARAMETERS.md.
 
-jupyter notebook figures.ipynb   # run cell 4
+# Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
 ## Figure 4 — MetaTune vs few-shot baselines (HSNet + Reviewer-added)
@@ -90,7 +97,7 @@ bash scripts/launch_matcher_gpu0.sh
 python baselines/aggregate_persam.py output_baselines/persam_f persam_f
 python baselines/aggregate_persam.py output_baselines/matcher    matcher
 
-jupyter notebook figures.ipynb   # run cell 6 (panels updated to include PerSAM-F, Matcher)
+# Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
 ## Figure 5 — In-distribution / out-of-distribution evaluation on yeast
@@ -103,7 +110,7 @@ for seed in 42 40 22; do
   bash inference.sh   # --volume_path $DATA_ROOT/Yeast/PhaseContrast/test_out/Images  # OOD
   # repeat with --dataset yeast-contrast
 done
-jupyter notebook figures.ipynb   # run cells 5 / 8 / 10
+# Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
 ## Figure 6 — Bilevel ablation (joint D₁∪D₂ / 1st-order / 2nd-order)
@@ -112,7 +119,7 @@ jupyter notebook figures.ipynb   # run cells 5 / 8 / 10
 # 1st-order (default): same MetaTune training as above.
 
 # Joint D₁∪D₂ baseline:
-bash train_vanilla.sh   # uses train_vanilla.py + trainer_vanilla.py
+${PYTHON:-python} train_vanilla.py --root_path "$TRAIN_IMAGES" --dataset "$DATASET" --base_lr "$BASE_LR" --seed "$SEED" --ckpt "$CKPT"
 
 # 2nd-order (DARTS unrolled):
 # pass --unrolled to train.py via train.sh
@@ -124,14 +131,14 @@ bash launch_swap_gpu1.sh
 bash infer_swap.sh 0 blood osteosarcoma cellBT474
 bash infer_swap.sh 1 cellHuh7 multimodal cyto
 
-jupyter notebook figures.ipynb   # cell 10 (Fig 6)
+# Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
 ## Figure 7 — End-to-end vs separate optimization
 
 End-to-end is the default `train.sh`. The "separate" baseline trains LoRA with prompt frozen, then freezes LoRA and trains prompt. Implementation note: this is conceptually a sequential degradation of `train.py`; see paper Methods. (We do not ship a separate script for this; it can be reproduced by running `train_vanilla.py` then `train.py` with `--lora_ckpt` pointing to the vanilla output.)
 
-## Figure 8 — Component ablation (which SAM component to LoRA)
+## Supplementary Figure S1 — Component ablation (which SAM component to LoRA)
 
 Vary the `--module` flag in `train.sh`:
 
@@ -150,28 +157,24 @@ bash train.sh   # --module sam_lora_all
 ```
 
 ```bash
-jupyter notebook figures.ipynb   # cell 8 (Fig 8)
+# Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
-## Figure 9 — Split-strategy ablation (1:1 vs 3:1)
+## Supplementary Figure S2 — Split-strategy ablation (1:1 vs 3:1)
 
-The 1:1 split is hard-coded in `trainer.py` (`num_train = int(len(db) * 0.5)`). For 3:1, edit that line to `int(len(db) * 0.75)` and re-run. (We have not parameterized this since it's a one-line code change with no measurable effect; see paper Fig. 9.)
+Use `--train_split 0.5` for 1:1 and `--train_split 0.75` for 3:1; no source edit is required.
 
-## Figure 10 — No-prompt ablation
+## Supplementary Figure S3 — No-prompt ablation
 
-Freeze `no_mask_embed` at random initialization and train only the LoRA + decoder on D₁ ∪ D₂. This is the same as the joint-optimization baseline (Fig 6 D₁+D₂) with the prompt frozen — produced by `train_vanilla.sh` with an additional flag (or by editing `trainer_vanilla.py` to disable gradients on `no_mask_embed`).
+Freeze `no_mask_embed` at random initialization and train only the LoRA + decoder on D₁ ∪ D₂. This is the same as the joint-optimization baseline (Fig. 6 D₁+D₂) with the prompt frozen — produced by `train_vanilla.py --freeze_prompt`.
 
-## Figures 11-15 — Qualitative examples
+## Supplementary Figures S4-S8 — Qualitative examples
 
-These are visualizations of predicted masks; reproducing them requires:
-1. Running inference on the test set with `--is_savenii`.
-2. Rendering the saved mask PNGs with the layout in `figures.ipynb`.
+Run `inference.py --is_savenii --output_dir "$OUTPUT_DIR"`; one binary PNG is written per test image. The original plotting notebook is not distributed, so panel layout must be recreated from these PNGs and the manuscript.
 
 ## Table 1 — Paired t-tests (8 tasks × 3 baselines)
 
-After running the 24-cell Dice grid (8 tasks × MetaTune/MedSA/SAMed/uSAM × 3 seeds), compute the paired two-sided t-tests via the snippet at the bottom of `figures.ipynb` (or manually with `scipy.stats.ttest_rel`).
-
-**Important note about Table 1**: in the original Table 1 of the submission, t / p / effect-size values were not reproducible from the per-seed Dice values stored in `figures.ipynb`. The revised Table 1 in the resubmission uses standard paired two-sided t-tests at n=3, df=2 (computed by `scipy.stats.ttest_rel`); see Reviewer Comment #4 response.
+After collecting the three paired seed scores per method and task, compute two-sided paired tests with `scipy.stats.ttest_rel`.
 
 ---
 
@@ -181,8 +184,12 @@ After running the 24-cell Dice grid (8 tasks × MetaTune/MedSA/SAMed/uSAM × 3 s
 
 ```bash
 # Regenerate instance-ID masks from the original COCO annotations
-python baselines/regen_cytonuke_instances.py
-python baselines/regen_fluored_instances.py
+python baselines/regen_cytonuke_instances.py \
+  --coco-json "$DATA_ROOT/CytoNuke/coco.json" --data-root "$DATA_ROOT/CytoNuke"
+python baselines/regen_fluored_instances.py \
+  --train-json "$DATA_ROOT/fluocell_v2/red/trainval_ori/ground_truths/COCO/annotations_red_trainval.json" \
+  --test-json "$DATA_ROOT/fluocell_v2/red/test_ori/ground_truths/COCO/annotations_red_test.json" \
+  --data-root "$DATA_ROOT/fluocell_v2/red"
 
 # Convert to YOLO polygon labels for the YOLOv7+SAM-bilevel comparison
 python baselines/instance_to_yolo.py \
@@ -209,7 +216,10 @@ conda activate stardist
 bash scripts/launch_stardist_gpu1.sh
 conda activate metatune
 
-# YOLOv7+SAM-bilevel
+# YOLOv7+SAM-bilevel (requires an external checkout and checkpoint)
+export YOLOSAM_ROOT=/path/to/yolov7-sam
+export YOLO_WEIGHTS=/path/to/detector/best.pt
+export SAM_CKPT="$CKPT"
 bash scripts/launch_yolosam_sweep.sh           # 4/10-shot
 bash scripts/launch_yolosam_fulldata.sh        # full training data
 
@@ -223,17 +233,26 @@ bash scripts/launch_cpsam_bilevel.sh
 ### Aggregating all instance-seg results
 
 ```bash
-python baselines/aggregate_persam.py output_baselines/cellpose       cellpose
+python baselines/aggregate_persam.py output_baselines/cellpose       cpsam
+python baselines/aggregate_persam.py output_baselines/cellpose       cyto3
 python baselines/aggregate_persam.py output_baselines/stardist       stardist
 python baselines/aggregate_persam.py output_baselines/cpsam_bilevel  cpsam_bilevel
 # YOLOv7+SAM results are in yolov7-sam/yolosam_runs/*/results.csv (best-epoch row).
 ```
 
+## Supplementary Figures S9-S11 — Instance-segmentation extension
+
+Use the data preparation, baseline launch, and aggregation commands above. The aggregator reads `result.json` for Cellpose, StarDist, and cpsam-bilevel layouts and exits with an error if no result is found.
+
+## External YOLOv7+SAM-bilevel provenance
+
+The MetaTune repository history contains neither the upstream repository URL nor a commit hash for the `yolov7-sam` checkout used in the experiments. Therefore an exact checkout cannot be stated responsibly from the available files. The launchers now require `YOLOSAM_ROOT` and `YOLO_WEIGHTS` instead of embedding an author-machine path. Reproducing the reported YOLO result remains blocked until the authors record the URL, commit hash, and detector-checkpoint provenance here.
+
 ---
 
 ## Software versions used
 
-Everything pinned in `requirements.txt` and `environment.yml`. The headline versions:
+Dependency declarations are in `requirements.txt` and `environment.yml`; NumPy and OpenCV use compatible ranges in the Conda environment. The headline versions:
 
 | | Version |
 |---|---|

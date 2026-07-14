@@ -1,6 +1,7 @@
 import os
 import sys
 from tqdm import tqdm
+from PIL import Image
 import logging
 import numpy as np
 import argparse
@@ -27,7 +28,7 @@ parser.add_argument('--output_dir', type=str, default='/output')
 parser.add_argument('--img_size', type=int, default=256, help='Input image size of the network')
 parser.add_argument('--input_size', type=int, default=256, help='The input size for training SAM model')
 parser.add_argument('--seed', type=int, default=1234, help='random seed')
-parser.add_argument('--is_savenii', action='store_true', help='Whether to save results during inference')
+parser.add_argument('--is_savenii', action='store_true', help='Save binary prediction PNGs to --output_dir')
 parser.add_argument('--deterministic', type=int, default=1, help='whether use deterministic training')
 parser.add_argument('--ckpt', type=str, default='/data1/li/Auto_SAMed/checkpoints/sam_vit_b_01ec64.pth', help='Pretrained checkpoint')
 parser.add_argument('--lora_ckpt', type=str, default='checkpoints/epoch_159.pth', help='The checkpoint from LoRA')
@@ -49,7 +50,7 @@ parser.add_argument('--batch_size', default=11, type=int, help='batch_size')
 parser.add_argument('--stepvalue1', default=30000, type=int, help='the step 1 for adjusting lr')
 parser.add_argument('--stepvalue2', default=45000, type=int, help='the step 2 for adjusting lr')
 parser.add_argument('--trainset', default='DUTS/DUTS-TR', type=str, help='Trainging set')
-parser.add_argument('--save_model_dir', default='/home/li/workspace/SAMAug/vst_main/ckpt', type=str, help='save model path')
+parser.add_argument('--save_model_dir', default='./checkpoints', type=str, help='save model path')
 
 # test
 parser.add_argument('--Testing', default=True, type=bool, help='Testing or not')
@@ -80,6 +81,13 @@ def inference(args, model, testloader, multimask_output, device):
         dice = dice_score(low_res_logits, low_res_label_batch, bg=False)
         
         score_dice.append(dice.cpu().numpy())
+
+        if args.is_savenii:
+            os.makedirs(args.output_dir, exist_ok=True)
+            prediction = (torch.sigmoid(low_res_logits[0, 0]) > 0.5).to(torch.uint8).cpu().numpy() * 255
+            source_path = sampled_batch["path"][0]
+            output_name = os.path.splitext(os.path.basename(source_path))[0] + ".png"
+            Image.fromarray(prediction).save(os.path.join(args.output_dir, output_name))
 
     return np.mean(score_dice)
 
@@ -123,7 +131,7 @@ if __name__ == '__main__':
     net.load_lora_parameters(args.lora_ckpt, device)
     net = net.to(device=device)
     
-    # net1 = torch.load('/home/li/workspace/SAMed/final.pt', map_location=device)    
+    # Optional comparison checkpoints should be passed explicitly.
     # params1 = net.named_parameters()    
     # params2 = net1.named_parameters()    
     # for p1, p2 in zip(params1, params2):

@@ -7,3 +7,7 @@ wandb/
 checkpoints/
 *.pth
 *.pt
+
+# Local Codex workspace metadata
+.codex/
+.agents/

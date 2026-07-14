@@ -85,7 +85,7 @@ See [DATA.md](DATA.md) for source URLs and preprocessing for all eight biologica
 bash train.sh
 ```
 
-Edit `train.sh` to set `--root_path`, `--dataset`, `--base_lr`, `--prompt_base_lr` (per-task values are in [HYPERPARAMETERS.md](HYPERPARAMETERS.md)).
+Set `TRAIN_IMAGES`, `DATASET`, `BASE_LR`, and `PROMPT_LR` as shown in [REPRODUCE.md](REPRODUCE.md); no script editing is required.
 
 ### 5. Evaluate
 
@@ -93,21 +93,15 @@ Edit `train.sh` to set `--root_path`, `--dataset`, `--base_lr`, `--prompt_base_l
 bash inference.sh
 ```
 
-### 6. Reproduce paper figures
+### 6. Reproduce paper results
 
-See [REPRODUCE.md](REPRODUCE.md) for figure-by-figure recipes. The simplest path is:
-
-```bash
-jupyter notebook figures.ipynb
-```
-
-which renders every figure of the paper from the per-run AP/Dice arrays.
+See [REPRODUCE.md](REPRODUCE.md) for commands mapped to Figures 1–7 and Supplementary Figures S1–S11. The previously referenced `figures.ipynb` is not part of this repository, so the guide no longer depends on it.
 
 ## Reproducibility checklist
 
 This repository was prepared following the community checklist of Schmied et al. (*Nat Methods*, 2024) for publishing image analyses:
 
-- **Code**: every method, ablation, and baseline used in the paper is shipped here (no in-house dependencies).
+- **Code**: MetaTune and the included adapters are shipped here; externally implemented comparison methods and their documented limitations are listed in `REPRODUCE.md`.
 - **Weights**: trained checkpoints for all reported MetaTune (semantic) and ablation runs (vanilla baseline + swap-meta) are deposited on Zenodo: [10.5281/zenodo.20517421](https://doi.org/10.5281/zenodo.20517421).
 - **Data**: source URLs, licenses, preprocessing scripts, and train/test splits are documented in [DATA.md](DATA.md).
 - **Hyperparameters**: per-task, per-method, per-seed hyperparameters are tabulated in [HYPERPARAMETERS.md](HYPERPARAMETERS.md), and the exact `config.txt` from every reported run is bundled with the released checkpoints on Zenodo.

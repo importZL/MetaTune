@@ -39,6 +39,7 @@ parser.add_argument('--module', type=str, default='sam_lora_mask_decoder')
 parser.add_argument('--dice_param', type=float, default=0.8)
 
 parser.add_argument('--num_data', type=int, default=10, help='batch_size per gpu')
+parser.add_argument('--train_split', type=float, default=0.5, help='Fraction of support samples assigned to D1')
 parser.add_argument('--exp_type', type=str, default='vanilla')
 
 parser.add_argument('--weight_decay', type=float, default=0.1, help='weight decay')

@@ -1,12 +1,14 @@
 #!/bin/bash
 # Route B (BLO-SAM-instance) full sweep: 2 datasets x 3 seeds = 6 runs.
-# Edit GPU below as needed (set to 0 or 1 based on availability).
+# Pass the GPU index as the first argument.
 
 set -e
-cd /data2/li/workspace/SAMed
+REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+cd "$REPO_ROOT"
 mkdir -p logs
 
-PY=/home/li/anaconda/envs/yolo/bin/python
+PY=${PYTHON:-python}
 GPU=${1:-0}
 LOG=logs/instance_gpu${GPU}.log
 
@@ -44,12 +46,12 @@ train_and_infer() {
     mv "$LATEST" "$NEW" 2>/dev/null && echo "  renamed -> $NEW" | tee -a $LOG
 }
 
-CYTO_TR=/data2/li/workspace/data/CytoNuke/train/Images
-CYTO_TE_IMG=/data2/li/workspace/data/CytoNuke/test/Images
-CYTO_TE_MSK=/data2/li/workspace/data/CytoNuke/test/Masks_instance
-FL_TR=/data2/li/workspace/data/fluocell_v2/red/train/Images
-FL_TE_IMG=/data2/li/workspace/data/fluocell_v2/red/test/Images
-FL_TE_MSK=/data2/li/workspace/data/fluocell_v2/red/test/Masks_instance
+CYTO_TR=${DATA_ROOT}/CytoNuke/train/Images
+CYTO_TE_IMG=${DATA_ROOT}/CytoNuke/test/Images
+CYTO_TE_MSK=${DATA_ROOT}/CytoNuke/test/Masks_instance
+FL_TR=${DATA_ROOT}/fluocell_v2/red/train/Images
+FL_TE_IMG=${DATA_ROOT}/fluocell_v2/red/test/Images
+FL_TE_MSK=${DATA_ROOT}/fluocell_v2/red/test/Masks_instance
 
 for seed in 42 40 22; do
     train_and_infer cyto         4 1e-3 5e-3 $seed "$CYTO_TR" "$CYTO_TE_IMG" "$CYTO_TE_MSK"

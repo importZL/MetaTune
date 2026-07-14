@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="148.696813pt" version="1.1" viewBox="0 0 94.776562 148.696813" width="94.776562pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 148.696813 
+L 94.776562 148.696813 
+L 94.776562 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 25.068281 137.996813 
+L 69.708281 137.996813 
+L 69.708281 29.276813 
+L 25.068281 29.276813 
+z
+" style="fill:none;"/>
+   </g>
+   <g id="patch_3">
+    <path clip-path="url(#p917fe84939)" d="M 27.097372 456.210347 
+L 47.388281 456.210347 
+L 47.388281 94.428076 
+L 27.097372 94.428076 
+z
+" style="fill:#f5c6c4;"/>
+   </g>
+   <g id="patch_4">
+    <path clip-path="url(#p917fe84939)" d="M 47.388281 456.210347 
+L 67.67919 456.210347 
+L 67.67919 53.696744 
+L 47.388281 53.696744 
+z
+" style="fill:#e8c047;"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="m2b7eca5216" style="stroke:#000000;stroke-width:0.8;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="25.068281" xlink:href="#m2b7eca5216" y="137.996813"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 18.068281, 140.144156)" x="18.068281" y="140.144156">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="25.068281" xlink:href="#m2b7eca5216" y="58.443429"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 18.068281, 60.590773)" x="18.068281" y="60.590773">0.5</text>
+     </g>
+    </g>
+    <g id="text_3">
+     <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 14.728281, 25.909913)" x="14.728281" y="25.909913">Dice</text>
+    </g>
+   </g>
+   <g id="LineCollection_1">
+    <path clip-path="url(#p917fe84939)" d="M 37.242827 101.506192 
+L 37.242827 87.349961 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="LineCollection_2">
+    <path clip-path="url(#p917fe84939)" d="M 57.533736 57.786506 
+L 57.533736 49.606981 
+" style="fill:none;stroke:#000000;"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 25.068281 137.996813 
+L 25.068281 29.276813 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 25.068281 137.996813 
+L 69.708281 137.996813 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="text_4">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(39.508423 70.86582)rotate(-90)">0.45</text>
+   </g>
+   <g id="text_5">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(59.799332 33.122841)rotate(-90)">0.51</text>
+   </g>
+   <g id="text_6">
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(7.2 11.424375)">Head and neck squamous cell</text>
+    <text style="font-family:Arial;font-size:6px;font-style:normal;font-weight:normal;" transform="translate(9.372187 17.7705)">carcinoma cell segmentation</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p917fe84939">
+   <rect height="108.72" width="44.64" x="25.068281" y="29.276813"/>
+  </clipPath>
+ </defs>
+</svg>

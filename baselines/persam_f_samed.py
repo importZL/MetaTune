@@ -12,8 +12,8 @@ comparison against MetaTune:
 
 Usage:
     python baselines/persam_f_samed.py \
-        --root_path /data2/li/workspace/data/blood-cell/train/Images \
-        --test_path /data2/li/workspace/data/blood-cell/test/Images \
+        --root_path $DATA_ROOT/blood-cell/train/Images \
+        --test_path $DATA_ROOT/blood-cell/test/Images \
         --dataset blood --num_data 4 --seed 42 --gpu_id 0 \
         --output ./output_baselines/persam_f
 """

@@ -2,7 +2,7 @@
 # Sanity-check the Zenodo tarball before uploading.
 
 set -e
-WORK=/data2/li/workspace
+WORK=${WORK:?Set WORK to the directory containing the archive}
 TARBALL=${1:-$WORK/zenodo_metatune_v1.tar.gz}
 VERIFY_DIR=$WORK/zenodo_verify
 
@@ -50,7 +50,7 @@ done
 echo "[6] Torch loadability check on a random checkpoint"
 random_ckpt=$(find "$VERIFY_DIR/$ROOT" -name "best.pth" | shuf | head -1)
 echo "    trying: $(echo $random_ckpt | sed "s|$VERIFY_DIR/$ROOT/||")"
-/home/li/anaconda/envs/yolo/bin/python -c "
+${PYTHON:-python} -c "
 import torch
 sd = torch.load('$random_ckpt', map_location='cpu', weights_only=False)
 print(f'    state_dict has {len(sd)} keys; first 5:', list(sd.keys())[:5])

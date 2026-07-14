@@ -11,6 +11,7 @@ Expects subdirs named like
 where _{NNNN} is Dice × 10000.
 """
 
+import json
 import os
 import re
 import sys
@@ -38,20 +39,39 @@ def main():
     # We match by prefix-stripping known dataset names since some end in digits.
     known_datasets = [ds for ds, _ in TASK_ORDER]
     found = defaultdict(dict)
-    pat = re.compile(rf"^(.+?)_{re.escape(method)}_img\d+_seed(\d+)_(\d{{4}})$")
+    if not os.path.isdir(base):
+        raise SystemExit(f"Result directory does not exist: {base}")
     for d in sorted(os.listdir(base)):
-        m = pat.match(d)
-        if not m:
+        run_dir = os.path.join(base, d)
+        if not os.path.isdir(run_dir):
             continue
-        ds_with_num, seed, suffix = m.groups()
-        ds = None
-        for known in known_datasets:
-            if ds_with_num.startswith(known):
-                ds = known
-                break
+        ds = next((known for known in known_datasets if d.startswith(known)), None)
         if ds is None:
             continue
-        found[ds][int(seed)] = int(suffix) / 10000.0
+        result_json = os.path.join(run_dir, "result.json")
+        if os.path.isfile(result_json):
+            with open(result_json, encoding="utf-8") as handle:
+                result = json.load(handle)
+            seed = int(result["seed"])
+            if method in {"cpsam", "cyto3"} and result.get("pretrained_model") != method:
+                continue
+            value = result.get("Dice", result.get("mean_dice", result.get("AP@0.5")))
+            if value is None:
+                continue
+            if seed in found[ds]:
+                raise SystemExit(f"Multiple results for {ds} seed {seed}; select a more specific method")
+            found[ds][seed] = float(value)
+            continue
+        match = re.search(r"seed(\d+).*_(\d{4})", d)
+        if match:
+            seed, suffix = match.groups()
+            seed = int(seed)
+            if seed in found[ds]:
+                raise SystemExit(f"Multiple results for {ds} seed {seed}; select a more specific method")
+            found[ds][seed] = int(suffix) / 10000.0
+
+    if not found:
+        raise SystemExit(f"No matching results found in {base} for method {method!r}")
 
     rows = []
     print(f"{'Task':<14} {'Seed 42':<10} {'Seed 40':<10} {'Seed 22':<10} {'mean':<8} {'std':<8}")

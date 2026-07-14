@@ -20,7 +20,7 @@ Conventions: all experiments use **3 seeds** `{42, 40, 22}` for replicates. The 
 | Warmup | off (`--warmup` disabled) | per `train.sh` |
 | LR schedule | polynomial decay `lr0 · (1 - t/T)^0.9` | applied per iteration |
 | Dice/CE weighting (`--dice_param`) | 0.8 | loss = 0.2·CE + 0.8·Dice |
-| Train/D₂ split | 50/50 of N supports | `num_train = int(len(db) * 0.5)` |
+| Train/D₂ split | 50/50 of N supports | `--train_split 0.5` |
 | `--module` | `sam_lora_mask_decoder` | LoRA on decoder transformer (default) |
 
 ## MetaTune per-task LRs
@@ -69,6 +69,20 @@ No training (uses an existing BLO-SAM-instance checkpoint). At inference:
 - Run distance-transform on the binary mask; take gradient as `(dy, dx)` flow
 - `cellpose.dynamics.compute_masks(dP, cellprob)` → instance labels
 See `inference_route_d.py`.
+
+## Comparison baselines not contained in this repository
+
+The archived files do not record complete run configurations for DeepLab, UNet, vanilla SAM, MedSA, SAMed, uSAM, or HSNet. In particular, learning rate, epoch count, N-shot sampling, backbone, augmentation, prompt construction, checkpoint selection, and upstream commit are not all recoverable. These values must be supplied from the original experiment records before the reported numbers can be independently reproduced; they are intentionally not guessed here.
+
+| Method | Implementation in this repository | Complete reported-run configuration |
+|---|---:|---:|
+| DeepLab | No | No |
+| UNet | No | No |
+| vanilla SAM | No | No |
+| MedSA | No | No |
+| SAMed | Scaffolding lineage only | No |
+| uSAM | No | No |
+| HSNet | No | No |
 
 ---
 

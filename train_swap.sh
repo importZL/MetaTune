@@ -15,19 +15,19 @@
 #   cyto:         base_lr=5e-3   prompt_base_lr=1e-3
 #
 # Run with 3 seeds per task (e.g., 42, 40, 22) to match the existing 3-replicate ablation pattern.
-# Edit DATASET / DATA_ROOT / BASE_LR / PROMPT_LR / SEED below per run.
+# Override DATASET, TRAIN_IMAGES, BASE_LR, PROMPT_LR, and SEED through the environment.
 
-DATASET=blood
-DATA_ROOT=/data2/li/workspace/data/blood-cell/train/Images
-BASE_LR=1e-3
-PROMPT_LR=5e-3
-SEED=42
+DATASET=${DATASET:-blood}
+DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
+BASE_LR=${BASE_LR:-1e-3}
+PROMPT_LR=${PROMPT_LR:-5e-3}
+SEED=${SEED:-42}
 
-python -W ignore train.py \
-    --root_path ${DATA_ROOT} \
+${PYTHON:-python} -W ignore train.py \
+    --root_path "${TRAIN_IMAGES:?Set TRAIN_IMAGES to the dataset train/Images directory}" \
     --output ./output_swap \
     --module sam_lora_mask_decoder \
-    --max_epoch 100 \
+    --max_epochs 100 \
     --num_data 4 \
     --wandb_mode disabled \
     --batch_size 1 \
