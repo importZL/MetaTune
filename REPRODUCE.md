@@ -264,8 +264,7 @@ conda activate stardist
 bash scripts/launch_stardist_gpu1.sh
 conda activate metatune
 
-# YOLOv7+SAM-bilevel (requires an external checkout and checkpoint)
-export YOLOSAM_ROOT=../yolov7-sam
+# YOLOv7+SAM-bilevel (code is vendored; detector weights remain external)
 export YOLO_WEIGHTS=../checkpoints/detector-best.pt
 export SAM_CKPT="$CKPT"
 bash scripts/launch_yolosam_sweep.sh           # 4/10-shot
@@ -285,7 +284,7 @@ python baselines/aggregate_persam.py output_baselines/cellpose       cpsam
 python baselines/aggregate_persam.py output_baselines/cellpose       cyto3
 python baselines/aggregate_persam.py output_baselines/stardist       stardist
 python baselines/aggregate_persam.py output_baselines/cpsam_bilevel  cpsam_bilevel
-# YOLOv7+SAM results are in yolov7-sam/yolosam_runs/*/results.csv (best-epoch row).
+# YOLOv7+SAM results are in output_baselines/yolosam_{runs,full}/*/results.csv.
 ```
 
 ## Instance-segmentation aggregation notes
@@ -300,9 +299,9 @@ Run `SAVE_PREDICTIONS=1 OUTPUT_DIR=./predictions/$DATASET bash inference.sh` on 
 
 Run `SAVE_PREDICTIONS=1` with `inference.sh` separately with the yeast ID and OOD test directories. The plotting notebook is not distributed, so recreate panel layouts from the saved PNGs and revised manuscript.
 
-## External YOLOv7+SAM-bilevel provenance
+## Vendored YOLOv7+SAM-bilevel source
 
-The MetaTune repository history contains neither the upstream repository URL nor a commit hash for the `yolov7-sam` checkout used in the experiments. Therefore an exact checkout cannot be stated responsibly from the available files. The launchers now require `YOLOSAM_ROOT` and `YOLO_WEIGHTS` instead of embedding an author-machine path. Reproducing the reported YOLO result remains blocked until the authors record the URL, commit hash, and detector-checkpoint provenance here.
+The required training source is included under `third_party/yolov7_sam`, together with its original README, GPL-3.0 license, dependency manifest, model YAML, and experiment hyperparameter YAML. Its README identifies [RizwanMunawar/yolov7-segmentation](https://github.com/RizwanMunawar/yolov7-segmentation) as the upstream base. The sibling source directory was not a Git checkout, so the exact commit and provenance of the local SAM-bilevel modifications cannot be recovered. `YOLOSAM_ROOT` may still override the vendored directory. The pretrained detector checkpoint is not copied; set `YOLO_WEIGHTS` to it explicitly.
 
 ---
 

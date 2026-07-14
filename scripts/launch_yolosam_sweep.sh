@@ -5,7 +5,8 @@
 set -e
 REPO_ROOT=${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
 DATA_ROOT=${DATA_ROOT:?Set DATA_ROOT to the dataset parent directory}
-cd "${YOLOSAM_ROOT:?Set YOLOSAM_ROOT to the checked-out yolov7-sam repository}"
+YOLOSAM_ROOT=${YOLOSAM_ROOT:-${REPO_ROOT}/third_party/yolov7_sam}
+cd "$YOLOSAM_ROOT"
 mkdir -p ${REPO_ROOT}/logs
 
 PY=${PYTHON:-python}
@@ -20,11 +21,12 @@ run() {
     WANDB_MODE=disabled $PY -W ignore segment/train.py \
         --data "${yaml_root}/data_n${n}_s${seed}.yaml" \
         --weights "$WEIGHTS" \
-        --cfg yolov7-seg.yaml \
+        --cfg models/segment/yolov7-seg.yaml \
         --epochs 20 --batch 1 --imgsz 256 \
         --hyp data/hyp.scratch.custom.yaml \
         --name "$name" \
-        --project yolosam_runs \
+        --seed "$seed" \
+        --project "${REPO_ROOT}/output_baselines/yolosam_runs" \
         --wandb_mode disabled \
         --sam_ckpt "$SAM_CKPT" \
         --device $gpu --noplots >> $LOG 2>&1

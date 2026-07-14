@@ -79,23 +79,28 @@ To ensure a controlled comparison, all trainable semantic-segmentation baselines
 | Batch size | 1 for trainable baselines |
 | Training epochs | 100 for trainable baselines |
 | Learning rate | The task-specific `base_lr` listed in the MetaTune per-task table above for methods with a single optimizer |
+| Optimizer | AdamW with `betas=(0.9, 0.999)` |
+| Weight decay | 0.1 |
+| Learning-rate schedule | Polynomial decay, `lr = lr0 × (1 - iteration/max_iterations)^0.9` |
+| Training loss | `0.2 × cross-entropy + 0.8 × Dice loss` |
+| Checkpoint selection | Best Dice score on the held-out validation subset |
 | Replicates | Three independent runs, paired with MetaTune by seed |
 | Evaluation | Dice score computed on the same test images and with the same foreground definition |
 | Architecture-specific settings | Defaults from the original implementation unless explicitly listed below |
 
-No separate baseline-specific hyperparameter search was performed. In particular, the common learning rate, epoch count, support count, input preprocessing, and random seeds were controlled across the trainable methods. Settings specific to an architecture—such as an adapter design, LoRA placement, few-shot episode construction, or pretrained checkpoint—were inherited from its original implementation.
+No separate baseline-specific hyperparameter search was performed. The learning rate, optimizer, weight decay, learning-rate schedule, loss, epoch count, batch size, support count, input preprocessing, checkpoint-selection rule, and random seeds were controlled across the trainable methods. Settings specific to an architecture—such as an adapter design, LoRA placement, few-shot episode construction, backbone, or pretrained checkpoint—were inherited from its original implementation.
 
 ### Baseline-specific settings and sources
 
 | Method | Training and initialization | Method-specific settings | Source implementation |
 |---|---|---|---|
-| DeepLab | Trained from scratch using the shared protocol above | The architecture and all settings without a shared counterpart followed the original DeepLab implementation | DeepLab implementation cited in the manuscript |
-| UNet | Trained from scratch using the shared protocol above | The architecture and all settings without a shared counterpart followed the original UNet implementation | UNet implementation cited in the manuscript |
+| DeepLab | DeepLabV3+ with the MobileNet backbone, trained from scratch using the shared protocol above | Architecture-specific settings followed the default `deeplabv3plus_mobilenet` configuration; the original optimization defaults were replaced by the shared protocol above | [DeepLabV3Plus-Pytorch](https://github.com/VainF/DeepLabV3Plus-Pytorch) |
+| UNet | Standard U-Net with three input channels, task-specific output channels, and transposed-convolution upsampling (`bilinear=False`), trained from scratch using the shared protocol above | Architecture-specific settings followed the default U-Net configuration; the original optimization defaults were replaced by the shared protocol above | [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet) |
 | Vanilla SAM | No finetuning; SAM ViT-B checkpoint `sam_vit_b_01ec64.pth` | For each ground-truth mask, the prompts comprised one positive foreground point, one negative background point, and the target-object bounding box. These ground-truth-derived prompts were used at inference following the SAM evaluation protocol. | [Segment Anything](https://github.com/facebookresearch/segment-anything) |
 | MedSA | Finetuned using the shared support images, seeds, learning rates, and epoch count | Adapter architecture and prompt-conditioned components followed the original Medical SAM Adapter implementation; prompts were derived from the ground-truth masks during evaluation | [Medical SAM Adapter](https://github.com/ImprintLab/Medical-SAM-Adapter) |
 | SAMed | Finetuned using the shared support images, seeds, learning rates, and epoch count | LoRA placement and other SAMed-specific settings followed the original implementation | [SAMed](https://github.com/hitachinsk/SAMed) |
 | uSAM | No local finetuning; the publicly released microscopy-pretrained model was used directly | Preprocessing and inference followed the original implementation | [Segment Anything for Microscopy](https://github.com/computational-cell-analytics/micro-sam) |
-| HSNet | Trained/evaluated using the same N-shot samples and seeds as MetaTune | Backbone, episodic construction, and other few-shot-specific settings followed the original HSNet implementation | [HSNet](https://github.com/juhongm999/hsnet) |
+| HSNet | Trained using the full shared protocol above, including the same N-shot samples and seeds as MetaTune | Backbone, episodic construction, and other few-shot-specific settings followed the original paper and public implementation | [HSNet](https://github.com/juhongm999/hsnet) |
 
 The source repositories above identify the original implementations whose method-specific defaults were followed. The exact historical upstream commit hashes were not recorded; no claim of commit-level reproducibility is made for these external baselines. The repository nevertheless records the shared experimental protocol used to adapt those implementations to the eight biological datasets, enabling the comparison conditions reported in the manuscript to be reconstructed.
 

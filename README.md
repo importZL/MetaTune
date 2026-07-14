@@ -27,6 +27,7 @@ MetaTune adapts the Segment Anything Model (SAM) for biological image segmentati
 ├── sam_lora_image_encoder.py / sam_lora_prompt_encoder.py / sam_lora_all.py   Other LoRA placements
 ├── datasets/                                          Four dataset loaders plus package initialization
 ├── baselines/                                         Wrappers for all comparison methods
+├── third_party/yolov7_sam/                          Vendored YOLOv7+SAM training source
 │   ├── persam_f_samed.py                              PerSAM-F (Zhang et al., ICLR 2024) adapter
 │   ├── matcher_samed.py                               Matcher (Liu et al., ICLR 2024) adapter
 │   ├── cellpose_samed.py                              Cellpose / Cellpose-SAM fine-tune adapter
