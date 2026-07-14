@@ -63,13 +63,6 @@ Same base MetaTune setup + Cellpose-style flow head. Pass `--module sam_lora_mas
 
 GT flows computed online from instance masks via `cellpose.dynamics.masks_to_flows_gpu` (`baselines/regen_*` produces the instance masks first).
 
-### Comment #6 — instance segmentation, "Route D" (BLO-SAM semantic + distance-transform flow)
-No training (uses an existing BLO-SAM-instance checkpoint). At inference:
-- Predict semantic mask; threshold at log-odds 0
-- Run distance-transform on the binary mask; take gradient as `(dy, dx)` flow
-- `cellpose.dynamics.compute_masks(dP, cellprob)` → instance labels
-See `inference_route_d.py`.
-
 ## Comparison baselines not contained in this repository
 
 The archived files do not record complete run configurations for DeepLab, UNet, vanilla SAM, MedSA, SAMed, uSAM, or HSNet. In particular, learning rate, epoch count, N-shot sampling, backbone, augmentation, prompt construction, checkpoint selection, and upstream commit are not all recoverable. These values must be supplied from the original experiment records before the reported numbers can be independently reproduced; they are intentionally not guessed here.

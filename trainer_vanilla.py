@@ -98,8 +98,16 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
     ce_loss = nn.CrossEntropyLoss()
     dice_loss = DiceLoss(num_classes + 1)
 
-    optimizer = optim.AdamW(
-        list(p for n, p in model.named_parameters() if (p.requires_grad and ("no_mask_embed" not in n))),
+    if args.freeze_main and args.freeze_prompt:
+        raise ValueError("--freeze_main and --freeze_prompt cannot be used together")
+    for name, parameter in model.named_parameters():
+        if args.freeze_main and "no_mask_embed" not in name:
+            parameter.requires_grad_(False)
+        if args.freeze_prompt and "no_mask_embed" in name:
+            parameter.requires_grad_(False)
+
+    optimizer = None if args.freeze_main else optim.AdamW(
+        [p for n, p in model.named_parameters() if p.requires_grad and "no_mask_embed" not in n],
         lr=base_lr, betas=(0.9, 0.999), weight_decay=0.1)
     optimizer_prompt = None if args.freeze_prompt else optim.AdamW(
         [p for n, p in model.named_parameters() if p.requires_grad and "no_mask_embed" in n],
@@ -110,7 +118,7 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
     max_epoch = args.max_epochs
     max_iterations = args.max_epochs * len(trainloader)  # max_epoch = max_iterations // len(trainloader) + 1
     
-    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=base_lr, total_steps=max_iterations)
+    scheduler = None if optimizer is None else torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=base_lr, total_steps=max_iterations)
     logging.info("{} iterations per epoch. {} max iterations ".format(len(trainloader), max_iterations))
     best_performance = 0.0
     
@@ -131,11 +139,13 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
             logger.log({'info/stage1_loss': loss})
             # if 'vanilla' in args.exp_type:
             # logger.log({'info/stage2_loss': loss})
-            optimizer.zero_grad()
+            if optimizer is not None:
+                optimizer.zero_grad()
             if optimizer_prompt is not None:
                 optimizer_prompt.zero_grad()
             loss.backward()
-            optimizer.step()
+            if optimizer is not None:
+                optimizer.step()
             if optimizer_prompt is not None:
                 optimizer_prompt.step()
             # else:
@@ -159,7 +169,7 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
             ##### Adjust Learning Rate #####
             if args.warmup and iter_num < args.warmup_period:
                 lr_ = base_lr * ((iter_num + 1) / args.warmup_period)
-                for param_group in optimizer.param_groups:
+                for param_group in optimizer.param_groups if optimizer is not None else []:
                     param_group['lr'] = lr_
             else:
                 if args.warmup:
@@ -168,7 +178,7 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
                 else:
                     shift_iter = iter_num
                 lr_ = base_lr * (1.0 - shift_iter / max_iterations) ** 0.9  # learning rate adjustment depends on the max iterations
-                for param_group in optimizer.param_groups:
+                for param_group in optimizer.param_groups if optimizer is not None else []:
                     param_group['lr'] = lr_
 
             iter_num = iter_num + 1

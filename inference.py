@@ -84,7 +84,15 @@ def inference(args, model, testloader, multimask_output, device):
 
         if args.is_savenii:
             os.makedirs(args.output_dir, exist_ok=True)
-            prediction = (torch.sigmoid(low_res_logits[0, 0]) > 0.5).to(torch.uint8).cpu().numpy() * 255
+            prediction_logits = torch.nn.functional.interpolate(
+                low_res_logits,
+                size=label_batch.shape[-2:],
+                mode="bilinear",
+                align_corners=False,
+            )
+            prediction = (
+                torch.sigmoid(prediction_logits[0, 0]) > 0.5
+            ).to(torch.uint8).cpu().numpy() * 255
             source_path = sampled_batch["path"][0]
             output_name = os.path.splitext(os.path.basename(source_path))[0] + ".png"
             Image.fromarray(prediction).save(os.path.join(args.output_dir, output_name))

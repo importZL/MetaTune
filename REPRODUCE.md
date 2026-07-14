@@ -82,20 +82,10 @@ The repository does not include the original plotting notebook; use the resultin
 # Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
-## Figure 4 — MetaTune vs few-shot baselines (HSNet + Reviewer-added)
+## Figure 4 — HSNet versus MetaTune
 
 ```bash
 # HSNet — see Min et al., 2021. We use the public repo.
-
-# PerSAM-F (Reviewer Comment #3, added in revision):
-bash scripts/launch_persam_gpu0.sh
-
-# Matcher (Reviewer Comment #3, added in revision):
-bash scripts/launch_matcher_gpu0.sh
-
-# Aggregate:
-python baselines/aggregate_persam.py output_baselines/persam_f persam_f
-python baselines/aggregate_persam.py output_baselines/matcher    matcher
 
 # Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
@@ -103,74 +93,132 @@ python baselines/aggregate_persam.py output_baselines/matcher    matcher
 ## Figure 5 — In-distribution / out-of-distribution evaluation on yeast
 
 ```bash
-# Train on xy01 (4 supports), evaluate on (a) held-out xy01 and (b) xy02-xy34.
-for seed in 42 40 22; do
-  bash train.sh   # --dataset yeast-bright --root_path $DATA_ROOT/Yeast/PhaseContrast/train/Images --seed $seed
-  bash inference.sh   # --volume_path $DATA_ROOT/Yeast/PhaseContrast/test_in/Images   # ID
-  bash inference.sh   # --volume_path $DATA_ROOT/Yeast/PhaseContrast/test_out/Images  # OOD
-  # repeat with --dataset yeast-contrast
-done
-# Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
+run_yeast() {
+  local dataset="$1" image_root="$2"
+  for seed in 42 40 22; do
+    DATASET="$dataset" TRAIN_IMAGES="$image_root/train/Images" \
+    BASE_LR=5e-3 PROMPT_LR=5e-3 NUM_DATA=4 SEED="$seed" bash train.sh
+
+    local ckpt
+    ckpt=$(find ./output -path "*${dataset}4_auto_first_img256_*/best.pth" \
+      -printf '%T@ %p\n' | sort -nr | head -1 | cut -d' ' -f2-)
+    DATASET="$dataset" LORA_CKPT="$ckpt" \
+      VOLUME_PATH="$image_root/test_in/Images" bash inference.sh
+    DATASET="$dataset" LORA_CKPT="$ckpt" \
+      VOLUME_PATH="$image_root/test_out/Images" bash inference.sh
+  done
+}
+
+run_yeast yeast-bright   "$DATA_ROOT/Yeast/PhaseContrast"
+run_yeast yeast-contrast "$DATA_ROOT/Yeast/Brightfield"
 ```
 
 ## Figure 6 — Bilevel ablation (joint D₁∪D₂ / 1st-order / 2nd-order)
 
 ```bash
-# 1st-order (default): same MetaTune training as above.
+# First-order (default)
+bash train.sh
 
 # Joint D₁∪D₂ baseline:
-${PYTHON:-python} train_vanilla.py --root_path "$TRAIN_IMAGES" --dataset "$DATASET" --base_lr "$BASE_LR" --seed "$SEED" --ckpt "$CKPT"
+${PYTHON:-python} train_vanilla.py --root_path "$TRAIN_IMAGES" --output ./output --dataset "$DATASET" --module "${MODULE:-sam_lora_mask_decoder}" --max_epochs 100 --num_data "${NUM_DATA:-4}" --batch_size 1 --gpu_id "${GPU:-0}" --num_classes 1 --base_lr "$BASE_LR" --seed "${SEED:-42}" --ckpt "${SAM_CKPT:-./checkpoints/sam_vit_b_01ec64.pth}" --exp_type joint --wandb_mode disabled
 
-# 2nd-order (DARTS unrolled):
-# pass --unrolled to train.py via train.sh
-
-# Swap-meta ablation (Reviewer Comment #1, added in revision):
-bash launch_swap_gpu0.sh
-bash launch_swap_gpu1.sh
-# Test-set inference on the swap checkpoints:
-bash infer_swap.sh 0 blood osteosarcoma cellBT474
-bash infer_swap.sh 1 cellHuh7 multimodal cyto
+# Second-order (DARTS unrolled)
+bash train.sh --unrolled
 
 # Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
-## Figure 7 — End-to-end vs separate optimization
+## Figure 7 — PerSAM-F and Matcher comparisons
 
-End-to-end is the default `train.sh`. The "separate" baseline trains LoRA with prompt frozen, then freezes LoRA and trains prompt. Implementation note: this is conceptually a sequential degradation of `train.py`; see paper Methods. (We do not ship a separate script for this; it can be reproduced by running `train_vanilla.py` then `train.py` with `--lora_ckpt` pointing to the vanilla output.)
+```bash
+# PerSAM-F
+bash scripts/launch_persam_gpu0.sh
 
-## Supplementary Figure S1 — Component ablation (which SAM component to LoRA)
+# Matcher
+bash scripts/launch_matcher_gpu0.sh
+
+# Aggregate the three-seed results.
+python baselines/aggregate_persam.py output_baselines/persam_f persam_f
+python baselines/aggregate_persam.py output_baselines/matcher matcher
+```
+
+## Supplementary Figure S1 — Separate versus end-to-end optimization
+
+```bash
+# End-to-end
+bash train.sh
+
+# Separate stage 1: train LoRA + decoder with the prompt fixed.
+${PYTHON:-python} train_vanilla.py \
+  --root_path "$TRAIN_IMAGES" --output ./output --dataset "$DATASET" \
+  --module "${MODULE:-sam_lora_mask_decoder}" --max_epochs 100 \
+  --num_data "${NUM_DATA:-4}" --batch_size 1 --gpu_id "${GPU:-0}" \
+  --num_classes 1 --base_lr "$BASE_LR" --seed "${SEED:-42}" \
+  --ckpt "${SAM_CKPT:-./checkpoints/sam_vit_b_01ec64.pth}" \
+  --exp_type separate_lora --freeze_prompt --wandb_mode disabled
+
+STAGE1_CKPT=$(find ./output -path "*${DATASET}${NUM_DATA:-4}_separate_lora_img256_*/best.pth" \
+  -printf '%T@ %p\n' | sort -nr | head -1 | cut -d' ' -f2-)
+
+# Separate stage 2: load stage 1, freeze LoRA + decoder, train prompt only.
+${PYTHON:-python} train_vanilla.py \
+  --root_path "$TRAIN_IMAGES" --output ./output --dataset "$DATASET" \
+  --module "${MODULE:-sam_lora_mask_decoder}" --max_epochs 100 \
+  --num_data "${NUM_DATA:-4}" --batch_size 1 --gpu_id "${GPU:-0}" \
+  --num_classes 1 --base_lr "$PROMPT_LR" --seed "${SEED:-42}" \
+  --ckpt "${SAM_CKPT:-./checkpoints/sam_vit_b_01ec64.pth}" \
+  --lora_ckpt "$STAGE1_CKPT" --exp_type separate_prompt \
+  --freeze_main --wandb_mode disabled
+```
+
+## Supplementary Figure S2 — SAM-component ablation
 
 Vary the `--module` flag in `train.sh`:
 
 ```bash
 # Mask decoder only (paper default, our best)
-bash train.sh   # --module sam_lora_mask_decoder
+MODULE=sam_lora_mask_decoder bash train.sh
 
 # Image encoder only:
-bash train.sh   # --module sam_lora_image_encoder
+MODULE=sam_lora_image_encoder bash train.sh
 
 # Prompt encoder only:
-bash train.sh   # --module sam_lora_prompt_encoder
+MODULE=sam_lora_prompt_encoder bash train.sh
 
 # All three:
-bash train.sh   # --module sam_lora_all
+MODULE=sam_lora_all bash train.sh
 ```
 
 ```bash
 # Plotting notebook is not distributed; consume the reported CSV/SVG artifacts or your aggregated arrays.
 ```
 
-## Supplementary Figure S2 — Split-strategy ablation (1:1 vs 3:1)
+## Supplementary Figure S3 — Split-strategy ablation (1:1 vs 3:1)
 
-Use `--train_split 0.5` for 1:1 and `--train_split 0.75` for 3:1; no source edit is required.
+```bash
+TRAIN_SPLIT=0.5 bash train.sh  # 1:1
+TRAIN_SPLIT=0.75 bash train.sh # 3:1
+```
 
-## Supplementary Figure S3 — No-prompt ablation
+## Supplementary Figure S4 — No-prompt ablation
 
-Freeze `no_mask_embed` at random initialization and train only the LoRA + decoder on D₁ ∪ D₂. This is the same as the joint-optimization baseline (Fig. 6 D₁+D₂) with the prompt frozen — produced by `train_vanilla.py --freeze_prompt`.
+```bash
+${PYTHON:-python} train_vanilla.py \
+  --root_path "$TRAIN_IMAGES" --dataset "$DATASET" --output ./output \
+  --module "${MODULE:-sam_lora_mask_decoder}" --num_data "${NUM_DATA:-4}" \
+  --max_epochs 100 --base_lr "$BASE_LR" --gpu_id "${GPU:-0}" \
+  --num_classes 1 --seed "${SEED:-42}" --ckpt "$CKPT" \
+  --freeze_prompt --wandb_mode disabled
+```
 
-## Supplementary Figures S4-S8 — Qualitative examples
+## Supplementary Figure S5 — Swap-meta ablation
 
-Run `inference.py --is_savenii --output_dir "$OUTPUT_DIR"`; one binary PNG is written per test image. The original plotting notebook is not distributed, so panel layout must be recreated from these PNGs and the manuscript.
+```bash
+bash launch_swap_gpu0.sh
+bash launch_swap_gpu1.sh
+bash infer_swap.sh 0 blood osteosarcoma cellBT474
+bash infer_swap.sh 1 cellHuh7 multimodal cyto
+```
 
 ## Table 1 — Paired t-tests (8 tasks × 3 baselines)
 
@@ -178,7 +226,7 @@ After collecting the three paired seed scores per method and task, compute two-s
 
 ---
 
-## Instance-segmentation extensions (Reviewer Comment #6)
+## Supplementary Figure S6 — Instance segmentation
 
 ### Data preparation (one-time)
 
@@ -240,9 +288,17 @@ python baselines/aggregate_persam.py output_baselines/cpsam_bilevel  cpsam_bilev
 # YOLOv7+SAM results are in yolov7-sam/yolosam_runs/*/results.csv (best-epoch row).
 ```
 
-## Supplementary Figures S9-S11 — Instance-segmentation extension
+## Instance-segmentation aggregation notes
 
 Use the data preparation, baseline launch, and aggregation commands above. The aggregator reads `result.json` for Cellpose, StarDist, and cpsam-bilevel layouts and exits with an error if no result is found.
+
+## Supplementary Figures S7–S9 — Qualitative semantic-segmentation results
+
+Run `SAVE_PREDICTIONS=1 OUTPUT_DIR=./predictions/$DATASET bash inference.sh` on each semantic-segmentation test set. One binary PNG is written per image.
+
+## Supplementary Figures S10–S11 — Yeast ID/OOD qualitative results
+
+Run `SAVE_PREDICTIONS=1` with `inference.sh` separately with the yeast ID and OOD test directories. The plotting notebook is not distributed, so recreate panel layouts from the saved PNGs and revised manuscript.
 
 ## External YOLOv7+SAM-bilevel provenance
 

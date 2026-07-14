@@ -40,6 +40,7 @@ parser.add_argument('--dice_param', type=float, default=0.8)
 parser.add_argument('--num_data', type=int, default=10, help='batch_size per gpu')
 parser.add_argument('--train_split', type=float, default=0.5, help='Fraction of support samples assigned to D1')
 parser.add_argument('--freeze_prompt', action='store_true', help='Keep no-mask prompt embedding fixed (vanilla trainer only)')
+parser.add_argument('--freeze_main', action='store_true', help='Freeze LoRA and decoder parameters; train only the prompt embedding')
 parser.add_argument('--exp_type', type=str, default='vanilla')
 
 parser.add_argument('--weight_decay', type=float, default=0.1, help='weight decay')

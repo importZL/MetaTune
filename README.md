@@ -21,7 +21,7 @@ MetaTune adapts the Segment Anything Model (SAM) for biological image segmentati
 ├── train.py / train_vanilla.py / train_instance.py    Training entry points (bilevel / joint / instance-seg)
 ├── trainer.py / trainer_vanilla.py / trainer_instance.py   Training loops
 ├── prompt.py                                          Bilevel optimization (DARTS-style)
-├── inference.py / inference_instance.py / inference_route_d.py   Evaluation
+├── inference.py / inference_instance.py   Evaluation
 ├── sam_lora_mask_decoder.py                           Default LoRA-adapted SAM
 ├── sam_lora_mask_decoder_instance.py                  Extension: Cellpose-style flow head
 ├── sam_lora_image_encoder.py / sam_lora_prompt_encoder.py / sam_lora_all.py   Other LoRA placements
