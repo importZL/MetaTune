@@ -1,5 +1,5 @@
-"""Aggregate PerSAM-F / Matcher results into a numpy array ready to paste
-into figures.ipynb.
+"""Aggregate semantic- and instance-segmentation baseline results into
+three-seed result arrays.
 
 Usage:
     python baselines/aggregate_persam.py [BASE_DIR] [METHOD]
@@ -88,7 +88,7 @@ def main():
         rows.append(row)
 
     print()
-    print(f"# Numpy array for figures.ipynb (rows = tasks in TASK_ORDER above):")
+    print("# NumPy array (rows = tasks in TASK_ORDER above):")
     print(f"data_{method} = np.array([")
     for (ds, label), row in zip(TASK_ORDER, rows):
         if all(v is not None for v in row):

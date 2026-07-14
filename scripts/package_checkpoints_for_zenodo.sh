@@ -112,7 +112,7 @@ paper. Code is at https://github.com/importZL/MetaTune.
                                                     same architecture as MetaTune trained
                                                     without the bilevel split. Used in
                                                     Fig. 6 D1+D2 bar and as the "SAMed*"
-                                                    entries in Fig. 3 / Table 1.
+                                                    entries in Fig. 3 / Table S1.
         best.pth, config.txt
     ablations/swap_meta/<run_name>/                 Reviewer Comment #1 ablation:
                                                     meta/non-meta assignment inverted

@@ -26,19 +26,18 @@ MetaTune adapts the Segment Anything Model (SAM) for biological image segmentati
 ├── sam_lora_mask_decoder_instance.py                  Extension: Cellpose-style flow head
 ├── sam_lora_image_encoder.py / sam_lora_prompt_encoder.py / sam_lora_all.py   Other LoRA placements
 ├── datasets/                                          Four dataset loaders plus package initialization
-├── baselines/                                         Wrappers for all comparison methods
-├── third_party/yolov7_sam/                          Vendored YOLOv7+SAM training source
-│   ├── persam_f_samed.py                              PerSAM-F (Zhang et al., ICLR 2024) adapter
-│   ├── matcher_samed.py                               Matcher (Liu et al., ICLR 2024) adapter
-│   ├── cellpose_samed.py                              Cellpose / Cellpose-SAM fine-tune adapter
-│   ├── stardist_samed.py                              StarDist (Schmidt et al., MICCAI 2018) adapter
-│   ├── cellpose_cpsam_bilevel.py                      Our cpsam + BLO-SAM-bilevel hybrid
-│   ├── blosam_amg.py                                  SAM AutoMaskGenerator on BLO-SAM backbone
-│   ├── regen_cytonuke_instances.py                    Convert CytoNuke COCO -> per-pixel instance masks
-│   ├── regen_fluored_instances.py                     Convert FluoRed COCO -> per-pixel instance masks
-│   ├── instance_to_yolo.py                            Convert instance masks -> YOLO polygon labels
-│   ├── sample_yolo_nshot.py                           Sample N-shot YOLO splits with seeds
-│   └── aggregate_persam.py                            Aggregator for baseline sweeps
+├── baselines/                                         Baseline implementations and utilities
+│   ├── persam_f_samed.py                              PerSAM-F adapter
+│   ├── matcher_samed.py                               Matcher adapter
+│   ├── cellpose_samed.py                              Cellpose / Cellpose-SAM adapter
+│   ├── stardist_samed.py                              StarDist adapter
+│   ├── cellpose_cpsam_bilevel.py                      cpsam + BLO-SAM-bilevel
+│   ├── regen_cytonuke_instances.py                    CytoNuke instance-mask conversion
+│   ├── regen_fluored_instances.py                     FluoRed instance-mask conversion
+│   ├── instance_to_yolo.py                            Instance masks to YOLO labels
+│   ├── sample_yolo_nshot.py                           N-shot YOLO split generation
+│   └── aggregate_persam.py                            Baseline-result aggregation
+├── third_party/yolov7_sam/                            Vendored YOLOv7+SAM training source
 ├── scripts/                                           Shell scripts that drive full sweeps
 ├── train.sh / inference.sh / train_swap.sh            Single-run shell wrappers
 ├── infer_swap.sh                                      Test-set inference for swap-meta ablation

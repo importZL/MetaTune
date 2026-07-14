@@ -1,6 +1,6 @@
 # REPRODUCE.md — figure-by-figure reproduction guide
 
-This guide maps repository procedures to manuscript Figures 1–7 and Supplementary Figures S1–S11. It distinguishes runnable MetaTune workflows from comparison settings whose source or provenance is not present in this repository.
+This guide maps repository procedures to manuscript Figures 1–7 and Supplementary Figures S1–S11. It distinguishes repository-provided workflows from external comparison methods whose architecture-specific settings follow their original public implementations.
 
 ## Prerequisites
 
