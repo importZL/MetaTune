@@ -220,7 +220,7 @@ bash infer_swap.sh 0 blood osteosarcoma cellBT474
 bash infer_swap.sh 1 cellHuh7 multimodal cyto
 ```
 
-## Table 1 — Paired t-tests (8 tasks × 3 baselines)
+## Supplementary Table S1 — Paired t-tests (8 tasks × 3 baselines)
 
 After collecting the three paired seed scores per method and task, compute two-sided paired tests with `scipy.stats.ttest_rel`.
 

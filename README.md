@@ -25,7 +25,7 @@ MetaTune adapts the Segment Anything Model (SAM) for biological image segmentati
 ├── sam_lora_mask_decoder.py                           Default LoRA-adapted SAM
 ├── sam_lora_mask_decoder_instance.py                  Extension: Cellpose-style flow head
 ├── sam_lora_image_encoder.py / sam_lora_prompt_encoder.py / sam_lora_all.py   Other LoRA placements
-├── datasets/                                          Per-dataset loaders (18 files)
+├── datasets/                                          Four dataset loaders plus package initialization
 ├── baselines/                                         Wrappers for all comparison methods
 │   ├── persam_f_samed.py                              PerSAM-F (Zhang et al., ICLR 2024) adapter
 │   ├── matcher_samed.py                               Matcher (Liu et al., ICLR 2024) adapter
