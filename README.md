@@ -61,10 +61,11 @@ conda env create -f environment-stardist.yml
 
 ### 2. Download SAM-ViT-B weights
 
-Place `sam_vit_b_01ec64.pth` in a checkpoints directory and update the `--ckpt` flag in `train.sh` / `inference.sh`:
+Place the checkpoint in `./checkpoints/`, or set `SAM_CKPT` to the checkpoint location when running `train.sh` and `inference.sh`.
 
 ```bash
-wget -O sam_vit_b_01ec64.pth https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
+mkdir -p checkpoints
+wget -O checkpoints/sam_vit_b_01ec64.pth https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
 ```
 
 ### 3. Prepare a dataset

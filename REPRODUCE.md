@@ -62,7 +62,7 @@ done
 DATASET=blood VOLUME_PATH="$DATA_ROOT/blood-cell/test/Images" \
 LORA_CKPT="./output/<run>/best.pth" bash inference.sh
 
-# DeepLab, UNet — see baselines/ for adapters (or use the public repos directly).
+# DeepLab and UNet were run using their public implementations and the shared experimental settings documented in HYPERPARAMETERS.md; their adapted implementations are not included in this repository.
 # Vanilla SAM uses GT-derived point/box prompts at inference time; see paper Methods.
 
 # Render the figure:
