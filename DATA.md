@@ -18,15 +18,30 @@ The training scripts (`train.sh`, `train_instance.sh`, etc.) point at `<DATA_ROO
 
 ---
 
-## 1. BCCD — Blood Cell Count and Detection (semantic + instance)
-- **Source**: [Roboflow BCCD dataset](https://public.roboflow.com/object-detection/bccd) (originally derived from the BCCD Dataset)
-- **License**: MIT
-- **Task in paper**: Blood-cell semantic segmentation (Fig. 2 / 3 / 4); instance segmentation extension (Comment #6)
-- **Sample counts (paper Table 2)**: 4 train (sampled), 159 test
-- **Cell type**: red blood cells, white blood cells, platelets (all labeled as foreground)
-- **Image dimensions**: 1200×1600 (RGB)
-- **Loader**: `datasets/dataset_blood.py`
-- **Instance masks**: derived via connected components on binary mask (cells are non-overlapping).
+## 1. BCCD — Blood Cell Segmentation Dataset (semantic + instance)
+
+* **Source**: [Blood Cell Segmentation Dataset](https://www.kaggle.com/datasets/jeetblahiri/bccd-dataset-with-mask), Kaggle Dataset Version 6107556 ([version-specific DOI](https://doi.org/10.34740/KAGGLE/DSV/6107556))
+
+* **License**: MIT
+
+* **Task in paper**: Blood-cell semantic segmentation (Figs. 2–4); instance-segmentation extension
+
+* **Sample counts (paper Table S3)**: 4 training images (sampled) and 159 test images
+
+* **Cell types**: red blood cells, white blood cells, and platelets (all treated as foreground)
+
+* **Annotation type**: pixel-level binary segmentation masks
+
+* **Image dimensions**: 1200 × 1600 pixels (RGB)
+
+* **Loader**: `datasets/dataset_blood.py`
+
+* **Instance masks**: derived from the binary segmentation masks using connected-component analysis because the labeled cells are non-overlapping
+
+* **Exact experimental split**: see `splits/blood_cell/train.txt` and `splits/blood_cell/test.txt`
+
+* **Clarification**: “BCCD” is used in this repository as the abbreviated name of the blood-cell segmentation task. It refers to the pixel-level Blood Cell Segmentation Dataset identified above, not the Roboflow BCCD object-detection dataset. The Roboflow dataset provides bounding-box annotations and was not used in this study.
+
 
 ## 2. Osteosarcoma — BBBC039v1 / CellPose-curated nuclei
 - **Source**: [BBBC039v1](https://bbbc.broadinstitute.org/BBBC039) (Broad Bioimage Benchmark Collection); we use the variant re-distributed with CellPose
