@@ -28,7 +28,7 @@ The training scripts (`train.sh`, `train_instance.sh`, etc.) point at `<DATA_ROO
 
 * **Sample counts (paper Table S3)**: 4 training images (sampled) and 159 test images
 
-* **Experimental splits**: The test set (159 images, `splits/bccd/test.txt`) is fixed across all runs. The four training images are drawn from the dataset’s original training partition. `splits/bccd/seed_10/` lists the exact images of the seed-10 run reported in Figure 2, including their assignment to the non-meta subset \(D_1\) (`non_meta_D1.txt`) and the meta subset \(D_2\) (`meta_D2.txt`). Pass it to `train.sh` via `SPLIT_DIR=splits/bccd/seed_10`.
+* **Experimental splits**: The test set (159 images, `splits/bccd/test.txt`) is fixed across all runs. The four training images are drawn from the dataset’s original training partition. `splits/bccd/seed_42/` lists the exact images of the seed-42 run reported in Figure 2, including their assignment to the non-meta subset \(D_1\) (`non_meta_D1.txt`) and the meta subset \(D_2\) (`meta_D2.txt`). Pass it to `train.sh` via `SPLIT_DIR=splits/bccd/seed_42`.
 
 * **Cell types**: red blood cells, white blood cells, and platelets (all treated as foreground)
 
@@ -40,7 +40,7 @@ The training scripts (`train.sh`, `train_instance.sh`, etc.) point at `<DATA_ROO
 
 * **Instance masks**: derived from the binary segmentation masks using connected-component analysis because the labeled cells are non-overlapping
 
-* **Exact experimental split**: see `splits/bccd/seed_10/` and `splits/bccd/test.txt`
+* **Exact experimental split**: see `splits/bccd/seed_42/` and `splits/bccd/test.txt`
 
 * **Clarification**: “BCCD” is used in this repository as the abbreviated name of the blood-cell segmentation task. It refers to the pixel-level Blood Cell Segmentation Dataset identified above, not the Roboflow BCCD object-detection dataset. The Roboflow dataset provides bounding-box annotations and was not used in this study.
 

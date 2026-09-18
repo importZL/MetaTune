@@ -53,12 +53,12 @@ Figure 1 is a conceptual diagram; the source asset is `figures/method_overview.p
 
 ```bash
 # Configure each task with the paths and learning rates in HYPERPARAMETERS.md.
-# Worked example: BCCD, seed 10 (one of the three runs averaged in Figure 2; reported Dice 0.8710).
+# Worked example: BCCD, seed 42 (one of the three runs averaged in Figure 2; reported Dice 0.8710).
 # SPLIT_DIR fixes the exact D1/D2 support images. Without it, the loader takes the first
 # NUM_DATA files in directory-listing order, which differs between filesystems.
 DATASET=blood TRAIN_IMAGES="$DATA_ROOT/blood-cell/train/Images" \
-BASE_LR=5e-3 PROMPT_LR=5e-3 SEED=10 NUM_DATA=4 \
-SPLIT_DIR=splits/bccd/seed_10 bash train.sh
+BASE_LR=5e-3 PROMPT_LR=5e-3 SEED=42 NUM_DATA=4 \
+SPLIT_DIR=splits/bccd/seed_42 bash train.sh
 
 # Set LORA_CKPT to the generated best.pth before evaluation.
 DATASET=blood VOLUME_PATH="$DATA_ROOT/blood-cell/test/Images" \
