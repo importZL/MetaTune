@@ -28,6 +28,8 @@ The training scripts (`train.sh`, `train_instance.sh`, etc.) point at `<DATA_ROO
 
 * **Sample counts (paper Table S3)**: 4 training images (sampled) and 159 test images
 
+* **Experimental splits**: The test set is fixed across all runs. For each reported random seed, four training images were randomly selected from the dataset’s original training partition. The exact training-image selections and fixed test set are provided under `splits/bccd/`. The manifests also record the assignment of the four selected images to the non-meta subset \(D_1\) and meta subset \(D_2\).
+
 * **Cell types**: red blood cells, white blood cells, and platelets (all treated as foreground)
 
 * **Annotation type**: pixel-level binary segmentation masks
