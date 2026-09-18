@@ -2,7 +2,7 @@
 
 All hyperparameters used in the paper's experiments, ablations, and baselines are listed below. Every reported run also ships its own `config.txt` (saved automatically by `train.py` at the start of training) with the complete argparse namespace; those files are bundled with the released checkpoints on Zenodo: [10.5281/zenodo.20517421](https://doi.org/10.5281/zenodo.20517421).
 
-Conventions: all experiments use **3 seeds** `{42, 40, 22}` for replicates. The seed controls (i) random sampling of N support images from the train pool, (ii) network initialization, and (iii) data-loader shuffling.
+Conventions: all experiments use **3 seeds** `{42, 40, 22}` for replicates. The seed controls network initialization and data-loader shuffling. It does **not** select the support images: the loader takes the first N files in directory-listing order, or the exact images listed in `--split_dir` (see `splits/`), which is the reproducible option.
 
 ---
 

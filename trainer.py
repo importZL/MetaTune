@@ -77,9 +77,22 @@ def trainer(args, model, snapshot_path, multimask_output, low_res):
         ]),
     )
     
-    if not 0 < args.train_split < 1:
-        raise ValueError("--train_split must be between 0 and 1")
-    num_train = int(len(db_train) * args.train_split)
+    if args.split_dir is not None:
+        # Use the exact D1/D2 images listed in the split files instead of os.listdir order,
+        # which depends on the filesystem and is not reproducible across machines.
+        def read_list(name):
+            with open(os.path.join(args.split_dir, name)) as f:
+                return [line.strip() for line in f if line.strip()]
+        d1, d2 = read_list('non_meta_D1.txt'), read_list('meta_D2.txt')
+        missing = [n for n in d1 + d2 if not os.path.exists(os.path.join(args.root_path, n))]
+        if missing:
+            raise FileNotFoundError(f"Split images not found in {args.root_path}: {missing}")
+        db_train.sample_list = d1 + d2
+        num_train = len(d1)
+    else:
+        if not 0 < args.train_split < 1:
+            raise ValueError("--train_split must be between 0 and 1")
+        num_train = int(len(db_train) * args.train_split)
     num_valid = len(db_train) - num_train
     selector = range(len(db_train))
     logging.info("The length of train set is: {}".format(num_train))

@@ -90,8 +90,9 @@ def inference(args, model, testloader, multimask_output, device):
                 mode="bilinear",
                 align_corners=False,
             )
+            # Channel 0 = background, channel 1 = foreground (softmax, as in training and dice_score).
             prediction = (
-                torch.sigmoid(prediction_logits[0, 0]) > 0.5
+                prediction_logits[0].argmax(dim=0) == 1
             ).to(torch.uint8).cpu().numpy() * 255
             source_path = sampled_batch["path"][0]
             output_name = os.path.splitext(os.path.basename(source_path))[0] + ".png"

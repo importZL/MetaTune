@@ -52,15 +52,18 @@ Figure 1 is a conceptual diagram; the source asset is `figures/method_overview.p
 ## Figure 2 — MetaTune vs DeepLab / UNet / vanilla SAM on 8 tasks
 
 ```bash
-# Configure each task with the paths and learning rates in HYPERPARAMETERS.md. Example: BCCD.
-for seed in 42 40 22; do
-  DATASET=blood TRAIN_IMAGES="$DATA_ROOT/blood-cell/train/Images" \
-  BASE_LR=5e-3 PROMPT_LR=1e-3 SEED="$seed" NUM_DATA=4 bash train.sh
-done
+# Configure each task with the paths and learning rates in HYPERPARAMETERS.md.
+# Worked example: BCCD, seed 10 (one of the three runs averaged in Figure 2; reported Dice 0.8710).
+# SPLIT_DIR fixes the exact D1/D2 support images. Without it, the loader takes the first
+# NUM_DATA files in directory-listing order, which differs between filesystems.
+DATASET=blood TRAIN_IMAGES="$DATA_ROOT/blood-cell/train/Images" \
+BASE_LR=5e-3 PROMPT_LR=5e-3 SEED=10 NUM_DATA=4 \
+SPLIT_DIR=splits/bccd/seed_10 bash train.sh
 
-# Set LORA_CKPT to each generated best.pth before evaluation.
+# Set LORA_CKPT to the generated best.pth before evaluation.
 DATASET=blood VOLUME_PATH="$DATA_ROOT/blood-cell/test/Images" \
-LORA_CKPT="./output/<run>/best.pth" bash inference.sh
+LORA_CKPT="./output/blood4_auto_first_img256_<timestamp>/best.pth" bash inference.sh
+# Expected: "Test dice score: 0.871" (we obtain 0.8711 with the released code on an A100).
 
 # DeepLab and UNet were run using their public implementations and the shared experimental settings documented in HYPERPARAMETERS.md; their adapted implementations are not included in this repository.
 # Vanilla SAM uses GT-derived point/box prompts at inference time; see paper Methods.

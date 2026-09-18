@@ -12,7 +12,9 @@ SAM_CKPT=${SAM_CKPT:-./checkpoints/sam_vit_b_01ec64.pth}
 MODULE=${MODULE:-sam_lora_mask_decoder}
 TRAIN_SPLIT=${TRAIN_SPLIT:-0.5}
 OUTPUT=${OUTPUT:-./output}
+SPLIT_DIR=${SPLIT_DIR:-}
 EXTRA_ARGS=("$@")
+if [[ -n "$SPLIT_DIR" ]]; then EXTRA_ARGS=(--split_dir "$SPLIT_DIR" "${EXTRA_ARGS[@]}"); fi
 ${PYTHON:-python} train.py \
     --root_path "$TRAIN_IMAGES" \
     --output "$OUTPUT" \
