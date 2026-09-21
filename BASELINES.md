@@ -23,7 +23,6 @@ Throughout, `<DATA_ROOT>/<task>/{train,test}/{Images,Masks}` is the layout from 
 Both models are trained from scratch by the same trainer. The trainer was derived from the SAMed/Swin-Unet training script ([HuCaoFighting/Swin-Unet](https://github.com/HuCaoFighting/Swin-Unet)). Only its `train.py`/`trainer.py` scaffolding is used; the Swin model is not.
 
 **Provenance.** Earlier versions of HYPERPARAMETERS.md described DeepLab as `deeplabv3plus_mobilenet` from DeepLabV3Plus-Pytorch and UNet with `bilinear=False`; that description was incorrect and has been removed. For DeepLab, the per-image predictions retained from these runs reproduce the values plotted in Figure 2 — mean Dice 0.7371 on BCCD against a reported 0.7384, and 0.4779 on Huh7 against a reported 0.4782 — which identifies the torchvision `deeplabv3_resnet50` wrapper below as the implementation behind the reported DeepLab numbers. For UNet we retain no prediction set that matches the reported values, so the recipe below documents the U-Net code as it stands in our working copy; its three `unet_parts.py` edits are dated 2024-11-01 and may postdate some of the Figure 2 UNet runs.
-<!-- TODO(authors): confirm whether the Fig. 2 UNet runs predate the 2024-11-01 unet_parts.py edits. -->
 
 
 ### 1.1 Environment
