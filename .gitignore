@@ -4,6 +4,7 @@ output/
 output_*/
 wandb/
 .ipynb_checkpoints/
+zenodo/
 checkpoints/
 *.pth
 *.pt
