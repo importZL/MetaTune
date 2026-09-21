@@ -95,6 +95,8 @@ The repository does not include the original plotting notebook; use the resultin
 
 ## Figure 5 — In-distribution / out-of-distribution evaluation on yeast
 
+The yeast dataset is owned by the Phuc Nguyen Lab and cannot be redistributed publicly by the authors. Access may be requested from the Lead Contact, subject to approval by the data-owning laboratory. After access is approved, organize the dataset accordingly before running the commands below.
+
 ```bash
 run_yeast() {
   local dataset="$1" image_root="$2"

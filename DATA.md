@@ -113,7 +113,7 @@ The training scripts (`train.sh`, `train_instance.sh`, etc.) point at `<DATA_ROO
 
 ## Yeast (for OOD experiments, Fig. 5)
 
-For the in-distribution / out-of-distribution evaluation in the paper's Fig. 5, we use a privately-collected yeast cell segmentation dataset (Hao Lab, UCSD). It consists of:
+For the in-distribution and out-of-distribution evaluation in Figure 5, we use a privately collected yeast cell segmentation dataset owned by the Phuc Nguyen Lab at the University of California San Diego. It consists of:
 
 - **Bright-field modality**: 34 individual time-lapse experiments (xy01 through xy34), each containing several phase-contrast images of *Saccharomyces cerevisiae*.
 - **Phase-contrast modality**: same 34 individuals, different optical channel.
@@ -122,7 +122,7 @@ The ID/OOD split is:
 - **ID**: train on 4 images from individual `xy01`, test on the remaining held-out images from `xy01` (261 images).
 - **OOD**: train on 4 images from `xy01`, test on individuals `xy02-xy34` (11,913 images).
 
-Data is available upon request from `liz113[at]ucsd.edu`.
+This dataset is owned by the Phuc Nguyen Lab. The authors are not authorized to redistribute the images and annotations through a public repository. The data, ground-truth annotations, and ID/OOD split information may be made available upon reasonable request to the Lead Contact, subject to approval by the data-owning laboratory.
 
 - **Loader**: `datasets/dataset_cellBT474.py` (handles `yeast-bright`, `yeast-contrast`)
 
