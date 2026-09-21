@@ -35,7 +35,7 @@ RELEASED = [
 ]
 REPORTED_MEAN = 0.87          # Figure 2, MetaTune on BCCD (mean of the three runs)
 EVAL_TOL = 0.002              # released checkpoints: only JPEG-decoding differences in 13 test images
-RETRAIN = dict(label="MetaTune retrained (run 3)", split_dir="splits/bccd/run_1", seed=10,
+RETRAIN = dict(label="MetaTune retrained (run 3)", split_dir="splits/bccd/run_1",
                base_lr=5e-3, prompt_lr=5e-3, reported=0.8710)
 RETRAIN_TOL = 0.005           # retraining: allows for GPU / library nondeterminism
 
@@ -65,7 +65,7 @@ def run_inference(python, test_images, lora_ckpt, sam_ckpt, gpu):
 
 def retrain(python, train_images, sam_ckpt, gpu, output):
     env = dict(os.environ, PYTHON=python, DATASET="blood", TRAIN_IMAGES=train_images, NUM_DATA="4",
-               BASE_LR=str(RETRAIN["base_lr"]), PROMPT_LR=str(RETRAIN["prompt_lr"]), SEED=str(RETRAIN["seed"]),
+               BASE_LR=str(RETRAIN["base_lr"]), PROMPT_LR=str(RETRAIN["prompt_lr"]),
                SPLIT_DIR=RETRAIN["split_dir"], GPU=str(gpu), SAM_CKPT=sam_ckpt, OUTPUT=output)
     before = set(glob.glob(os.path.join(output, "blood4_auto_first_img256_*")))
     subprocess.run(["bash", "train.sh"], cwd=REPO, env=env, check=True,

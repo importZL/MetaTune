@@ -28,7 +28,7 @@ parser.add_argument('--deterministic', type=bool, default=False, help='whether u
 parser.add_argument('--base_lr', type=float, default=0.005, help='segmentation network learning rate')
 parser.add_argument('--prompt_base_lr', type=float, default=0.005, help='prompt learning rate')
 parser.add_argument('--img_size', type=int, default=256, help='input patch size of network input')
-parser.add_argument('--seed', type=int, default=42, help='random seed')
+parser.add_argument('--seed', type=int, default=10, help='random seed')
 parser.add_argument('--vit_name', type=str, default='vit_b', help='select one vit model')
 parser.add_argument('--ckpt', type=str, default='./checkpoints/sam_vit_b_01ec64.pth', help='Pretrained checkpoint')
 parser.add_argument('--lora_ckpt', type=str, default=None, help='Finetuned lora checkpoint')
