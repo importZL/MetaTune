@@ -73,16 +73,16 @@ To ensure a controlled comparison, all trainable semantic-segmentation baselines
 |---|---|
 | Support images | 4 for BCCD, Osteosarcoma, BT474, Huh7, MultiModal, and CytoNuke; 10 for FluoRed and Sartorius |
 | Random seeds | `{42, 40, 22}` |
-| Support sampling | The same seed-specific support images used for MetaTune |
+| Support sampling | The same support images used for MetaTune; they are chosen by directory-listing order, not by the seed (see `--split_dir` and `splits/`) |
 | Train/test split | Identical to MetaTune for every dataset |
-| Input resolution | 256 × 256 for trainable baselines, unless the original architecture required a different native resolution |
+| Input resolution | 256 × 256, except DeepLab and UNet (224 × 224) and MedSA (1024 × 1024, its native encoder resolution) |
 | Batch size | 1 for trainable baselines |
 | Training epochs | 100 for trainable baselines |
 | Learning rate | The task-specific `base_lr` listed in the MetaTune per-task table above for methods with a single optimizer |
-| Optimizer | AdamW with `betas=(0.9, 0.999)` |
-| Weight decay | 0.1 |
+| Optimizer | AdamW with `betas=(0.9, 0.999)`, except MedSA (Adam, following its original implementation) |
+| Weight decay | 0.1 for MetaTune and SAMed; DeepLab and UNet use the AdamW default (0.01) and MedSA uses 0 |
 | Learning-rate schedule | Polynomial decay, `lr = lr0 × (1 - iteration/max_iterations)^0.9` |
-| Training loss | `0.2 × cross-entropy + 0.8 × Dice loss` |
+| Training loss | `0.2 × cross-entropy + 0.8 × Dice loss` for MetaTune and SAMed; DeepLab and UNet weight the two terms equally (`CE + Dice`); MedSA uses its original `BCEWithLogitsLoss(pos_weight=2)` |
 | Checkpoint selection | Best Dice score on the held-out validation subset |
 | Replicates | Three independent runs, paired with MetaTune by seed |
 | Evaluation | Dice score computed on the same test images and with the same foreground definition |
@@ -94,9 +94,9 @@ No separate baseline-specific hyperparameter search was performed. The learning 
 
 | Method | Training and initialization | Method-specific settings | Source implementation |
 |---|---|---|---|
-| DeepLab | DeepLabV3+ with the MobileNet backbone, trained from scratch using the shared protocol above | Architecture-specific settings followed the default `deeplabv3plus_mobilenet` configuration; the original optimization defaults were replaced by the shared protocol above | [DeepLabV3Plus-Pytorch](https://github.com/VainF/DeepLabV3Plus-Pytorch) |
-| UNet | Standard U-Net with three input channels, task-specific output channels, and transposed-convolution upsampling (`bilinear=False`), trained from scratch using the shared protocol above | Architecture-specific settings followed the default U-Net configuration; the original optimization defaults were replaced by the shared protocol above | [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet) |
-| Vanilla SAM | No finetuning; SAM ViT-B checkpoint `sam_vit_b_01ec64.pth` | For each ground-truth mask, the prompts comprised one positive foreground point, one negative background point, and the target-object bounding box. These ground-truth-derived prompts were used at inference following the SAM evaluation protocol. | [Segment Anything](https://github.com/facebookresearch/segment-anything) |
+| DeepLab | DeepLabV3 with the ResNet-50 backbone, trained from scratch (no ImageNet weights) | `deeplabv3_resnet50` from the torchvision hub (`pytorch/vision:v0.10.0`), with every `BatchNorm2d` replaced by `InstanceNorm2d` because the batch size is 1, and the classifier and auxiliary classifier resized to two output channels. Input 224 × 224; loss `CE + Dice` (1 : 1); AdamW with its default weight decay. See [BASELINES.md §1](BASELINES.md#1-deeplabv3-and-unet) for the full recipe. | [torchvision](https://github.com/pytorch/vision) model code, trained with a [Swin-Unet](https://github.com/HuCaoFighting/Swin-Unet)-derived trainer |
+| UNet | Standard U-Net with three input channels, two output channels, and bilinear upsampling (`bilinear=True`), trained from scratch | Model code from Pytorch-UNet with three local edits to `unet_parts.py` (upsample scale factor, concatenation order, and a BatchNorm+ReLU in `OutConv`); same trainer, input size, loss and optimizer as DeepLab. See [BASELINES.md §1](BASELINES.md#1-deeplabv3-and-unet). | [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet) |
+| Vanilla SAM | No finetuning; SAM ViT-B checkpoint `sam_vit_b_01ec64.pth`, image encoder run at 256 × 256 | For each ground-truth mask, the prompts comprised one uniformly random positive foreground point, one uniformly random negative background point, and a box derived from the mask contours. The box formula used in our runs is **not** a conventional bounding box; it is stated in full, with its consequences, in [BASELINES.md §2](BASELINES.md#2-vanilla-sam). | [Segment Anything](https://github.com/facebookresearch/segment-anything) |
 | MedSA | Finetuned using the shared support images, seeds, learning rates, and epoch count | Adapter architecture and prompt-conditioned components followed the original Medical SAM Adapter implementation; prompts were derived from the ground-truth masks during evaluation | [Medical SAM Adapter](https://github.com/ImprintLab/Medical-SAM-Adapter) |
 | SAMed | Finetuned using the shared support images, seeds, learning rates, and epoch count | LoRA placement and other SAMed-specific settings followed the original implementation | [SAMed](https://github.com/hitachinsk/SAMed) |
 | uSAM | No local finetuning; the publicly released microscopy-pretrained model was used directly | Preprocessing and inference followed the original implementation | [Segment Anything for Microscopy](https://github.com/computational-cell-analytics/micro-sam) |

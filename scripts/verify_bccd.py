@@ -28,14 +28,14 @@ ZENODO_URL = "https://zenodo.org/api/records/20517421/files/metatune_v1.zip/cont
 
 # (label, checkpoint folder in the Zenodo archive, reported test Dice)
 RELEASED = [
-    ("MetaTune, seed 42 (Fig. 2)", "semantic_main/blood4_auto_first_img256_20240826-055350_8649", 0.8649),
-    ("MetaTune, seed 40 (Fig. 2)", "semantic_main/blood4_auto_first_img256_20241030-202935_8704", 0.8704),
-    ("MetaTune, seed 10 (Fig. 2)", "semantic_main/blood4_auto_first_img256_20241030-203538", 0.8710),
+    ("MetaTune run 1 (Fig. 2)", "semantic_main/blood4_auto_first_img256_20240826-055350_8649", 0.8649),
+    ("MetaTune run 2 (Fig. 2)", "semantic_main/blood4_auto_first_img256_20241030-202935_8704", 0.8704),
+    ("MetaTune run 3 (Fig. 2)", "semantic_main/blood4_auto_first_img256_20241030-203538", 0.8710),
     ("SAMed baseline (Fig. 3)", "ablations/vanilla_joint/blood4_vanilla_img256_20240826-053437_8549", 0.8549),
 ]
-REPORTED_MEAN = 0.87          # Figure 2, MetaTune on BCCD (mean of the three seeds)
+REPORTED_MEAN = 0.87          # Figure 2, MetaTune on BCCD (mean of the three runs)
 EVAL_TOL = 0.002              # released checkpoints: only JPEG-decoding differences in 13 test images
-RETRAIN = dict(label="MetaTune retrained, seed 10", split_dir="splits/bccd/seed_42", seed=10,
+RETRAIN = dict(label="MetaTune retrained (run 3)", split_dir="splits/bccd/seed_42", seed=10,
                base_lr=5e-3, prompt_lr=5e-3, reported=0.8710)
 RETRAIN_TOL = 0.005           # retraining: allows for GPU / library nondeterminism
 
@@ -108,7 +108,7 @@ def main():
     mean = sum(metatune_scores) / len(metatune_scores)
     ok = round(mean, 2) == REPORTED_MEAN
     failed |= not ok
-    rows.append(("MetaTune mean of 3 seeds (Fig. 2)", REPORTED_MEAN, mean, "rounds to", ok))
+    rows.append(("MetaTune mean of 3 runs (Fig. 2)", REPORTED_MEAN, mean, "rounds to", ok))
 
     if args.retrain:
         ckpt = retrain(args.python, train_images, sam_ckpt, args.gpu, os.path.abspath(args.output))

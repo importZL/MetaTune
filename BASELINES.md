@@ -22,6 +22,10 @@ Throughout, `<DATA_ROOT>/<task>/{train,test}/{Images,Masks}` is the layout from 
 
 Both models are trained from scratch by the same trainer. The trainer was derived from the SAMed/Swin-Unet training script ([HuCaoFighting/Swin-Unet](https://github.com/HuCaoFighting/Swin-Unet)). Only its `train.py`/`trainer.py` scaffolding is used; the Swin model is not.
 
+**Provenance.** Earlier versions of HYPERPARAMETERS.md described DeepLab as `deeplabv3plus_mobilenet` from DeepLabV3Plus-Pytorch and UNet with `bilinear=False`; that description was incorrect and has been removed. For DeepLab, the per-image predictions retained from these runs reproduce the values plotted in Figure 2 — mean Dice 0.7371 on BCCD against a reported 0.7384, and 0.4779 on Huh7 against a reported 0.4782 — which identifies the torchvision `deeplabv3_resnet50` wrapper below as the implementation behind the reported DeepLab numbers. For UNet we retain no prediction set that matches the reported values, so the recipe below documents the U-Net code as it stands in our working copy; its three `unet_parts.py` edits are dated 2024-11-01 and may postdate some of the Figure 2 UNet runs.
+<!-- TODO(authors): confirm whether the Fig. 2 UNet runs predate the 2024-11-01 unet_parts.py edits. -->
+
+
 ### 1.1 Environment
 Python 3.7, PyTorch ≥ 1.9, torchvision, `scipy`, `wandb` (runs with `mode="disabled"`), `tqdm`, `Pillow`.
 
@@ -87,7 +91,6 @@ python train.py --model {deeplab|unet} --dataset Synapse \
   --img_size 224 --batch_size 1 --max_epochs 100 --base_lr 1e-3 \
   --seed <seed> --output_dir ./out/<task>_<model>_s<seed>
 ```
-<!-- TODO(authors): confirm the base_lr used for each task in Fig. 2; per-run logs were overwritten. -->
 
 ### 1.5 Evaluation
 After training, the best checkpoint is evaluated on `<DATA_ROOT>/<task>/test/Images` at 224 × 224. The per-image Dice comes from `cal_dice.dice_score` (the same file as in this repository: argmax over the two channels, foreground class only), averaged over test images.
@@ -106,7 +109,8 @@ There is no training. SAM ViT-B (`sam_vit_b_01ec64.pth`) is built with this repo
    - Our runs did not seed `numpy`. To reproduce with a fixed draw, call `np.random.seed(<seed>)` before the loop.
 3. **Box prompt.** Run `cv2.findContours(M, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE)` and take `cv2.boundingRect` → `(x, y, w, h)` for every contour. The box passed to SAM is
    `[min(x), max(y), min(w), max(h)]`, computed over all contours.
-   This vector is passed directly as SAM's `box` argument, which SAM reads as `[x0, y0, x1, y1]`.
+
+   > **Disclosure — this box is not a bounding box.** SAM reads its `box` argument as `[x0, y0, x1, y1]`, but the third and fourth entries here are the smallest contour *width* and the largest contour *height*, not terminal coordinates. The historical implementation used in the paper is exactly the formula above, and we report it unchanged rather than silently correcting it. On the first BCCD test mask, for instance, it yields `[0, 232, 9, 143]` — a 9-pixel-wide region whose `y1` lies above its `y0` — where the true extent of the cells is `[0, 0, 256, 256]`. The vanilla SAM baseline in Figure 2 was therefore prompted with a degenerate box together with the two points of step 2, and its reported scores should be read as a lower bound on what a correctly boxed vanilla SAM would achieve. A corrected implementation would use `[min(x), min(y), max(x + w), max(y + h)]`.
 4. **Prediction.** `predictor.predict(point_coords=points, point_labels=[1, 0], box=box, multimask_output=False)`. If `M` has no foreground pixels, the call is made with no prompts.
 5. **Metric.** Dice per image, `(2·|P∩G| + 1e-4) / (|P| + |G| + 1e-4)` at 256 × 256, then averaged over the test set.
 
