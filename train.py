@@ -41,7 +41,7 @@ parser.add_argument('--dice_param', type=float, default=0.8)
 parser.add_argument('--num_data', type=int, default=10, help='batch_size per gpu')
 parser.add_argument('--train_split', type=float, default=0.5, help='Fraction of support samples assigned to D1')
 parser.add_argument('--split_dir', type=str, default=None,
-                    help='Folder with non_meta_D1.txt and meta_D2.txt (e.g. splits/bccd/seed_42). '
+                    help='Folder with non_meta_D1.txt and meta_D2.txt (e.g. splits/bccd/run_1). '
                          'Overrides the directory-listing selection controlled by --num_data/--train_split.')
 parser.add_argument('--exp_type', type=str, default='vanilla')
 

@@ -58,7 +58,7 @@ Figure 1 is a conceptual diagram; the source asset is `figures/method_overview.p
 # NUM_DATA files in directory-listing order, which differs between filesystems.
 DATASET=blood TRAIN_IMAGES="$DATA_ROOT/blood-cell/train/Images" \
 BASE_LR=5e-3 PROMPT_LR=5e-3 SEED=42 NUM_DATA=4 \
-SPLIT_DIR=splits/bccd/seed_42 bash train.sh
+SPLIT_DIR=splits/bccd/run_1 bash train.sh
 
 # Set LORA_CKPT to the generated best.pth before evaluation.
 DATASET=blood VOLUME_PATH="$DATA_ROOT/blood-cell/test/Images" \

@@ -35,7 +35,7 @@ RELEASED = [
 ]
 REPORTED_MEAN = 0.87          # Figure 2, MetaTune on BCCD (mean of the three runs)
 EVAL_TOL = 0.002              # released checkpoints: only JPEG-decoding differences in 13 test images
-RETRAIN = dict(label="MetaTune retrained (run 3)", split_dir="splits/bccd/seed_42", seed=10,
+RETRAIN = dict(label="MetaTune retrained (run 3)", split_dir="splits/bccd/run_1", seed=10,
                base_lr=5e-3, prompt_lr=5e-3, reported=0.8710)
 RETRAIN_TOL = 0.005           # retraining: allows for GPU / library nondeterminism
 
